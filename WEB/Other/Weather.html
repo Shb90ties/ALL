@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        window.onload = GetWeather;
+        var weathers;
+        var city;
+
+        function GetWeather()
+        {
+            var url = "http://api.openweathermap.org/data/2.5/forecast?q=Hod%20Hasharon&mode=json&appid=52474a26128cdd94e9fd90f5545b061c";
+            var data;
+            $.ajax({
+                dataType: "json",
+                url: url,
+                data: data,
+                success: function (result) {
+                    city = result.city.name;
+                    var list = result.list;
+                    weathers = new Array(5);
+                    var c = 0;
+                    for (var i = 0; i < list.length; i += 8)
+                    {
+                        var O = new Object;
+                        O.date = list[i].dt_txt;
+                        var main = list[i].main;
+                        O.temp = convertToKelv(main.temp);
+                        var Ic = list[i].weather[0].icon;
+                        if (Ic) {
+                            O.icon = 'http://openweathermap.org/img/w/' + Ic + '.png';
+                        } else {
+                            if (O.temp > 20) { icon = "/S.ico"; }
+                            else { O.icon = "/C.png"; }
+                        }
+                        weathers[c] = O;
+                        c++;
+                    }
+                    installMenu();
+                }
+            });
+        }
+
+        function installMenu()
+        {
+            var menu = document.getElementById("menu");
+            menu.innerHTML = "";
+            for (var i = 0; i < weathers.length; i++) {
+                menu.innerHTML += '<a onclick="placeContent('+i+')" href="#">' + weathers[i].date + '</a><br />';
+            }
+            menu.innerHTML += '<a onclick="placeContent(99)" href="#">Show ALL</a>';
+        }
+
+        function convertToKelv(temp)
+        { return Math.round(temp - 273.15); }
+
+        function placeContent(index)
+        {
+            var container = document.getElementById("content");
+            container.innerHTML = "";
+            if (index == 99) {
+                for (var i = 0; i < weathers.length; i++) {
+                    container.innerHTML += '<div style="display: inline-block; border: 1px solid black;">' +
+                                            '<p>Date : ' + weathers[i].date +
+                                            '</p><p><b>Temprature ' + weathers[i].temp + '°C </b>' +
+                                            '<img src="' + weathers[i].icon + '" /></p></div>';
+                }
+            }
+            else {
+                container.innerHTML = '<p>Date : ' + weathers[index].date +
+                                 '</p><p><b>Temprature ' + weathers[index].temp + '°C </b>' +
+                                    '<img src="' + weathers[index].icon + '" /></p>';
+            }
+        }
+
+
+    </script>
+</head>
+<body>
+    <h1>The Weather from OpenWeatherMap.org</h1><hr />
+    <button id="select">SELECT</button>
+    <div id="menu" style="display:none; background-color:white">
+        Getting Weather info
+    </div>
+    <script>
+        $("#select").click(function () { $("#menu").slideToggle("fast"); });
+    </script>
+    <hr />
+    <div id="content">
+        
+    </div>
+</body>
+</html>

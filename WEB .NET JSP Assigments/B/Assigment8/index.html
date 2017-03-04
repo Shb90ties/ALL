@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=no">
+    <style>
+        @-ms-viewport { width: 100vw ; min-zoom: 100% ; zoom: 100% ; }  @viewport { width: 100vw ; min-zoom: 100% zoom: 100% ; }
+        @-ms-viewport { user-zoom: fixed ; min-zoom: 100% ; }           @viewport { user-zoom: fixed ; min-zoom: 100% ; }
+    </style>
+    <title>Fifteen</title>
+    
+    <link rel="stylesheet" href="jquery.mobile-1.4.5.css" type="text/css" />
+    <script src="FastClick.js"></script>
+    <script src="jquery-1.11.0.min.js"></script>
+    <script src="jquery-1.12.0.js"></script>
+    <script src="jquery.mobile-1.4.5.js"></script>
+    
+    
+    <script type="text/javascript">
+        var x,y; var Cx = 0; var Cy = 0; var first = true; var avail = false; var zeroC = false;
+        var CxF,Cyf;
+    
+        if (window.DeviceOrientationEvent) 
+        {       // only visible on cellphone not emulator
+            window.addEventListener('deviceorientation', function(event) 
+            {
+                var Alpha = Math.floor(event.alpha);    // will show the degrees of alpha : (spins in 360)
+                var Beta = Math.floor(event.beta);      // will show the degrees of beta : (spins in 180*)
+                var Gamma = Math.floor(event.gamma);    // will show the degrees of gamma : (spins in 90*)
+                document.getElementById("myAlpha").innerText = "spin angle " + Alpha;
+                document.getElementById("myBeta").innerText = "forward backward " + Beta;
+                document.getElementById("myGamma").innerText = "left right " + Gamma;
+                if( first ){ x = Beta; y=Gamma; first = false; }
+                if( zeroC ){ Cx = 0; Cy = 0; return; }
+                Cx += (x - Beta); Cy += (y - Gamma);
+                document.getElementById("Cxsee").innerText = "Cx = "+Cx;
+                document.getElementById("Cysee").innerText = "Cy = "+Cy;
+                x = Beta; y = Gamma;
+                if( avail == false ){ return; }
+                if( Cy<=(Cyf-20) )
+                { 
+                    Cy = 0; Cx = 0; zeroC = true;
+                    OutTimeM = setTimeout(function(){ zeroC = false; },1000);
+                    installNeighbours(); moveButton("Left");
+                }
+                if( Cy>= Cyf+20 )
+                {
+                    Cy = 0; Cx = 0; zeroC = true;
+                    OutTimeM = setTimeout(function(){ zeroC = false; },1000);
+                    installNeighbours(); moveButton("Right");
+                }
+                if( Cx<=(Cx-30) )
+                { 
+                    Cy = 0; Cx = 0; zeroC = true;
+                    OutTimeM = setTimeout(function(){ zeroC = false; },1000);
+                    installNeighbours(); moveButton("Down");
+                }
+                if( Cx>= Cx+30 )
+                {
+                    Cy = 0; Cx = 0; zeroC = true;
+                    OutTimeM = setTimeout(function(){ zeroC = false; },1000);
+                    installNeighbours(); moveButton("Up");
+                }
+            });
+        }
+        else
+        {
+            alert("Not supported on your device or browser");
+        }
+        
+        var Buttons = new Array();
+        var wid = (screen.width - 70 - 30)/4;
+        var lock = false;
+        var myDIV = null;
+        var empty;  var eR,eL,eD,eU; var OutTimeM;
+        
+        
+        function reAvail()
+        {
+            zeroC = false
+        }
+        
+        
+        function Instl()
+        {
+            myDIV = document.createElement('div');
+            CxF = 0; Cyf = 0;
+            var mySPAN = document.createElement('span');
+            mySPAN.id = 'fastClick';
+            var textDIV = document.getElementById('textDIV');
+            textDIV.style.width = '' + (screen.width - 8) + 'px';
+            textDIV.style.position = 'absolute';
+            textDIV.style.top = '' + (wid*4+105) + 'px';
+            textDIV.textAlign = 'center';
+            
+            var bestText = document.getElementById('bestGame');
+            bestText.style.fontSize = ''+(wid/3-5)+'px';
+            
+            var numArray = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+            
+            for( var i=1; i <15; i++)
+            {
+                var a = Math.floor((Math.random()*14));
+                var b = Math.floor((Math.random()*14));
+                var temp = numArray[a];
+                numArray[a] = numArray[b];
+                numArray[b] = temp;
+            }
+            for(var row=0; row<4; row++)
+                {
+                    for(var col=0; col<4; col++)
+                        {
+                            var myButton = document.createElement('input');
+                            myButton.type = 'button';
+                            myButton.id = ''+((row*4)+col);
+                            myButton.style.width = ''+wid+'px';
+                            myButton.style.height = ''+wid+'px';
+                            myButton.style.fontSize = '' + (wid / 3) + 'px';
+                            myButton.style.top = '' + (row * (wid + 10) + 35) + 'px';
+                            myButton.style.left = '' + (col * (wid + 10) + 35) + 'px';
+                            myButton.style.position = 'absolute';
+                           // myButton.onclick = function () { myClick(this); };
+                            
+                            var r = Math.floor((Math.random() * 256));
+                            var g = Math.floor((Math.random() * 256));
+                            var b = Math.floor((Math.random() * 256));
+                            
+                            myButton.style.backgroundColor = 'rgb(' + r + ', ' + g + ', '+ b + ')';
+                            if( myButton.id == '15' )
+                                {
+                                    empty = parseInt(myButton.id);
+                                    myButton.style.visibility = 'hidden';
+                                }
+                            else
+                                {
+                                    myButton.value = numArray[row*4+col];
+                                }
+                            Buttons[row*4+col] = myButton;
+                            
+                            mySPAN.appendChild(myButton);
+                        }
+                }
+            myDIV.appendChild(mySPAN);
+            document.body.appendChild(myDIV);
+            avail = true;
+            checkWinner();
+        }
+        
+        function moveButton(moveTo)
+        {
+            switch(moveTo)
+            {
+                case "Down":
+                {
+                    if( eD != "null" )
+                    {
+                        myClick(document.getElementById(eD));
+                    }
+                    break;
+                }
+                case "Up":
+                {
+                    if( eU != "null" )
+                    {
+                        myClick(document.getElementById(eU));
+                    }
+                    break;
+                }
+                case "Left":
+                {
+                    if( eL != "null" )
+                    {
+                        myClick(document.getElementById(eL));
+                    }
+                    break;
+                }
+                case "Right":
+                {
+                    if( eR != "null" )
+                    {
+                        myClick(document.getElementById(eR));
+                    }
+                    break;
+                }
+            }
+        }
+        
+        var myOriginalTop;
+        var myOriginalLeft;
+        
+        function myClick(myButton)
+        {
+            if(lock) return;
+            var hidden = document.getElementById('hiddenField');
+            if( hidden.value == 'true' ){ return; }
+            var myID = parseInt(myButton.id);
+            myOriginalLeft = myButton.style.left;
+            myOriginalTop = myButton.style.top;
+            if( myID + 4 == empty || myID - 4 == empty || 
+                (myID + 1 == empty && (myID+1)%4 != 0) || (myID - 1 == empty && (myID)%4 != 0) )
+                {
+                    lock=true;
+                    animateS(myID,empty);
+                }
+        }
+        
+        
+        function animateS(myID,empty)
+        {
+            if( empty == myID+4 )
+                {
+                    $("#"+myID).animate({top: '+='+(wid+10)},"fast",function(){swap_Buttons(myID)}); return;
+                }
+            if( empty == myID-4)
+                {
+                    $("#"+myID).animate({top: '-='+(wid+10)},"fast",function(){swap_Buttons(myID)}); return;
+                }
+            if( empty == myID+1)
+                {
+                    $("#"+myID).animate({left: '+='+(wid+10)},"fast",function(){swap_Buttons(myID)}); return;
+                }
+            $("#"+myID).animate({left: '-='+(wid+10)},"fast",function(){swap_Buttons(myID)});
+        }
+        
+        function swap_Buttons(myID)
+        {
+            var clicked = document.getElementById(myID);
+            clicked.style.left = myOriginalLeft;
+            clicked.style.top = myOriginalTop;
+            var emptyB = document.getElementById(empty);
+            emptyB.value = clicked.value;
+            emptyB.style.visibility = clicked.style.visibility;
+            emptyB.style.backgroundColor = clicked.style.backgroundColor;
+            clicked.style.visibility = 'hidden';
+            empty = myID;
+            installNeighbours();
+            lock = false;
+            checkWinner();
+        }
+        
+        function installNeighbours()
+        {
+            eD = "null"; eL = "null"; eR = "null"; eU = "null";
+            if( (empty+1)%4 != 0 ){ eR = empty+1; }
+            if( (empty)%4 != 0 ){ eL = empty-1; }
+            if( (empty+4) < 15 ){ eD = empty+4; }
+            if( (empty-4) > 0 ){ eU = empty-4; }
+        }
+        
+        function shuffle()
+        {
+             window.location.reload();
+        }
+        
+        function checkWinner()
+        {
+            if(checkVictory())
+            {
+                if(confirm('Game over! Start a new game?'))
+                {
+                    window.location.reload();
+                }
+                else
+                {
+                    var hidden = document.getElementById('hiddenField');
+				    hidden.value = 'true';
+                }
+            }
+        }
+        
+        function checkVictory() 
+        {
+            if ( document.getElementById(0) != null &&
+                document.getElementById(0).getAttribute('value') == '1' &&
+                document.getElementById(1) != null &&
+                document.getElementById(1).getAttribute('value') == '2' )
+            { return true; }
+            return false;
+        }
+    </script>
+</head>
+
+<body onload="Instl()">
+    <h>Fifteen!! , </h>
+    <input type="button" id="shuffleB" value="shuffle" onclick="shuffle()">
+    <input type="hidden" id="hiddenField" value="">
+    <div id="textDIV">
+    <font id="bestGame">Shay Butbul</font>
+    </div>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <div id="myAlpha"></div>
+    <div id="myBeta"></div>
+    <div id="myGamma"></div>
+    <div id="Cxsee"></div>
+    <div id="Cysee"></div>
+</body>
+</html>

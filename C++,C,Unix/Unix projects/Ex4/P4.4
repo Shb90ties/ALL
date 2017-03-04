@@ -1,0 +1,26 @@
+read a
+echo $a >| temp
+file=$(cut -d" " -f1 <temp)
+i=$(cut -d" " -f2 <temp)
+j=$(cut -d" " -f3 <temp)
+k=$(cut -d" " -f4 <temp)
+l=$(cut -d" " -f5 <temp)
+sum=0
+counter=1
+while read b
+do
+ if [ $counter -ge $k -a $counter -le $l ]
+ then
+	echo $b >| temp
+	counterChars=$i
+	while [ $counterChars -le $j ]
+	do
+	 num=0
+	 num=$(cut -d" " -f$counterChars <temp)
+	 sum=$[$sum+$num]
+	 counterChars=$[$counterChars+1]
+	done
+ fi
+counter=$[$counter+1]
+done<$file
+echo $sum

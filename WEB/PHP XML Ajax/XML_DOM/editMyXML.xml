@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root><!-- parent node -->
+	<node category="A"> <!-- first child -->
+		<text>RooR</text>
+		<value>5005</value> <!-- last child -->
+	</node>
+	
+	<node category="B"> <!-- first child -->
+		<text>TooT</text>
+		<value>8486</value> <!-- last child -->
+	</node>
+	
+	<node category="A">
+		<text>RooT</text>
+		<value>8086</value>
+	</node>
+</root>

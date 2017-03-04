@@ -1,0 +1,14 @@
+file=$1
+shift
+echo -n >| tmp
+while read x
+do
+counter=1
+ for num in $@
+ do
+	( echo $x | awk '{printf "%'$num's",$'$counter'}' ) >> tmp
+ 	counter=$[$counter+1]
+ done
+ ( echo ) >> tmp
+done < $file
+cat tmp

@@ -1,0 +1,14 @@
+read file
+echo >| temp
+echo -n >| don
+while read x
+do
+	echo -n "$x" >| temp
+	echo >| temp2
+	(wc -c<temp) >>temp2
+	(echo %%) >>temp2
+	tr "\n" "\000" <temp2 >| temp3
+	(echo "$(cat temp)") >> temp3
+	(echo "$(cat temp3)") >>don
+done<$file
+cat don

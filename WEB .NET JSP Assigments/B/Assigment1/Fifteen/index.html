@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=no">
+    <style>
+        @-ms-viewport { width: 100vw ; min-zoom: 100% ; zoom: 100% ; }  @viewport { width: 100vw ; min-zoom: 100% zoom: 100% ; }
+        @-ms-viewport { user-zoom: fixed ; min-zoom: 100% ; }           @viewport { user-zoom: fixed ; min-zoom: 100% ; }
+    </style>
+    <title>Fifteen</title>
+    <script src="FastClick.js"></script>
+    <script src="jquery-1.11.0.min.js"></script>
+    <script type="text/javascript">
+        var Buttons = new Array();
+        var wid = (screen.width - 70 - 30)/4;
+        var lock = false;
+        var myDIV = null;
+        var empty;
+        
+        function Instl()
+        {
+            myDIV = document.createElement('div');
+            var mySPAN = document.createElement('span');
+            mySPAN.id = 'fastClick';
+            var textDIV = document.getElementById('textDIV');
+            textDIV.style.width = '' + (screen.width - 8) + 'px';
+            textDIV.style.position = 'absolute';
+            textDIV.style.top = '' + (wid*4+105) + 'px';
+            textDIV.textAlign = 'center';
+            
+            var bestText = document.getElementById('bestGame');
+            bestText.style.fontSize = ''+(wid/3-5)+'px';
+            
+            var numArray = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+            
+            for( var i=1; i <15; i++)
+            {
+                var a = Math.floor((Math.random()*14));
+                var b = Math.floor((Math.random()*14));
+                var temp = numArray[a];
+                numArray[a] = numArray[b];
+                numArray[b] = temp;
+            }
+            for(var row=0; row<4; row++)
+                {
+                    for(var col=0; col<4; col++)
+                        {
+                            var myButton = document.createElement('input');
+                            myButton.type = 'button';
+                            myButton.id = ''+((row*4)+col);
+                            myButton.style.width = ''+wid+'px';
+                            myButton.style.height = ''+wid+'px';
+                            myButton.style.fontSize = '' + (wid / 3) + 'px';
+                            myButton.style.top = '' + (row * (wid + 10) + 35) + 'px';
+                            myButton.style.left = '' + (col * (wid + 10) + 35) + 'px';
+                            myButton.style.position = 'absolute';
+                            myButton.onclick = function () { myClick(this); };
+                            
+                            var r = Math.floor((Math.random() * 256));
+                            var g = Math.floor((Math.random() * 256));
+                            var b = Math.floor((Math.random() * 256));
+                            
+                            myButton.style.backgroundColor = 'rgb(' + r + ', ' + g + ', '+ b + ')';
+                            if( myButton.id == '15' )
+                                {
+                                    empty = parseInt(myButton.id);
+                                    myButton.style.visibility = 'hidden';
+                                }
+                            else
+                                {
+                                    myButton.value = numArray[row*4+col];
+                                }
+                            Buttons[row*4+col] = myButton;
+                            
+                            mySPAN.appendChild(myButton);
+                        }
+                }
+            myDIV.appendChild(mySPAN);
+            document.body.appendChild(myDIV);
+            
+            checkWinner();
+        }
+        
+        function myClick(myButton)
+        {
+            var hidden = document.getElementById('hiddenField');
+            if( hidden.value == 'true' ){ return; }
+            var myID = parseInt(myButton.id);
+            if( myID + 4 == empty || myID - 4 == empty || 
+				(myID + 1 == empty && (myID+1)%4 != 0) || (myID - 1 == empty && (myID)%4 != 0)  )
+                {
+                    swap_Buttons(myButton,document.getElementById(empty));
+                }
+            checkWinner();
+        }
+        
+        function swap_Buttons(clicked,emptyB)
+        {
+            emptyB.value = clicked.value;
+            emptyB.style.visibility = clicked.style.visibility;
+            emptyB.style.backgroundColor = clicked.style.backgroundColor;
+            clicked.style.visibility = 'hidden';
+            empty = parseInt(clicked.id);
+        }
+        
+        function shuffle()
+        {
+             window.location.reload();
+        }
+        
+        function checkWinner()
+        {
+            if(checkVictory())
+            {
+                if(confirm('Game over! Start a new game?'))
+                {
+                    window.location.reload();
+                }
+                else
+                {
+                    var hidden = document.getElementById('hiddenField');
+				    hidden.value = 'true';
+                }
+            }
+        }
+        
+        function checkVictory() 
+        {
+            if ( document.getElementById(0) != null &&
+                document.getElementById(0).getAttribute('value') == '1' &&
+                document.getElementById(1) != null &&
+                document.getElementById(1).getAttribute('value') == '2' )
+            { return true; }
+            return false;
+        }
+    </script>
+</head>
+
+<body onload="Instl(); QuickInstl();" style="text-align:center;">
+    <h>Fifteen!! , </h>
+    <input type="button" id="shuffleB" value="shuffle" onclick="shuffle()">
+    <input type="hidden" id="hiddenField" value="">
+    <div id="textDIV">
+    <font id="bestGame">Game</font>
+    </div>
+</body>
+</html>

@@ -1,0 +1,2 @@
+echo $1 | egrep -o . | uniq -c | tr -s " " | cut -d" " -f2 | sort -n | 
+tail -1

@@ -1,0 +1,27 @@
+// A) Make Common
+
+1.New Project -> Visual C# -> Class Libary -> Example : Common
+2.Make Interface with Methods calls in Common
+3.Make MyCommon Class for moving virables around
+3.Put [Serializable] above MyCommon class
+4.Start Debugging F5
+
+
+// B) Make server then Client
+
+1.New Project -> Visual C# -> Windows Form Application -> Example : Server / Client
+2.Solution Explorer -> References -> Right click -> Add References
+	-> Assemblies -> Framework -> V on System.Net.Http and System.Runtime.Remoting
+3.Solution Explorer -> References -> Right click -> Add References
+	-> Browse -> locate Common folder -> Common folder/bin/Debug/Common.dll
+4.Add Using
+
+	using System.IO;
+	using System.Runtime.Serialization;
+	using System.Runtime.Serialization.Formatters.Binary;
+
+	using Common(name in the Example);
+
+	using System.Runtime.Remoting;
+	using System.Runtime.Remoting.Channels;
+	using System.Runtime.Remoting.Channels.Http;

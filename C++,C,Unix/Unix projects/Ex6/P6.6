@@ -1,0 +1,4 @@
+for word in $@
+do
+ echo $word | egrep "^([0-9])\1([a-z])\2([0-9])\3([a-z])\4\1\1\2\2\3\3\4\4>"
+done

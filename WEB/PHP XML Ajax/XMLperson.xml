@@ -1,0 +1,26 @@
+<people>
+	<person group_="A">
+		<name>
+			personA
+		</name>
+		<age>
+			15
+		</age>
+	</person>
+	<person group_="B">
+		<name>
+			personB
+		</name>
+		<age>
+			18
+		</age>
+	</person>
+	<person group_="A">
+		<name>
+			personD
+		</name>
+		<age>
+			25
+		</age>
+	</person>
+</people>

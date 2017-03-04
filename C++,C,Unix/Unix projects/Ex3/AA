@@ -1,0 +1,4 @@
+echo1 12
+seq 2
+echo abc
+seq2

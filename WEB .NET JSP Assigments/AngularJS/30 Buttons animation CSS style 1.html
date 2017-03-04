@@ -1,0 +1,103 @@
+<html>
+<head>     
+	<link rel="stylesheet" href="jquery.mobile-1.4.5.css" type="text/css" />
+	<script src="angular.js"></script>
+    <style>
+        .myButton
+        {  
+            width:100px; 
+            height:100px;
+            position:absolute;
+            
+            -webkit-animation-name:none;
+            -webkit-animation-duration: 1s;
+            -webkit-animation-timing-function: linear;
+            -webkit-animation-iteration-count: 1;
+            -webkit-animation-play-state: none; 
+            -webkit-animation-fill-mode: forwards;
+        }
+
+
+        @-webkit-keyframes myRight
+        {
+            0% { -webkit-transform: translateX(0px);}
+            100% { -webkit-transform: translateX(100px);} 
+        }
+
+        @-webkit-keyframes myLeft
+        {
+            0% { -webkit-transform: translateX(0px);}
+            100% { -webkit-transform: translateX(-100px);}
+        }
+
+        @-webkit-keyframes myUp
+        {
+            0% { -webkit-transform: translateY(0px);}
+            100% { -webkit-transform: translateY(-100px);}
+        }
+
+        @-webkit-keyframes myDown  
+        {
+            0% { -webkit-transform: translateY(0px);}
+            100% { -webkit-transform: translateY(100px);} 
+        }
+    </style>
+    
+	<script type="text/javascript">   
+	   var app = angular.module('myApp', [])        
+	   app.controller('myCtrl', function ($scope, $timeout)
+       {
+		  var movingButton = document.getElementById("MovingButton");
+		  var movingButtonAngular = angular.element(movingButton);
+          var newX = 100, newY = 100;
+          movingButton.style.left = newX;
+		  movingButton.style.top = newY;  
+          $scope.myClick = function (e)
+          {          
+			var elem = angular.element(e.srcElement);
+            newX = movingButton.offsetLeft;
+			newY = movingButton.offsetTop;
+            switch (elem.text())
+            {            
+			     case "Left":
+				    movingButtonAngular.css('-webkit-animation-name', 'myLeft') ;    
+                    newX -=100;           
+				    break;    
+			    case "Right":                 
+				movingButtonAngular.css('-webkit-animation-name', 'myRight') ;
+                    newX +=  100;
+                    break;     
+			    case "Up":  
+				movingButtonAngular.css('-webkit-animation-name', 'myUp') ;
+				    newY -= 100;         
+				    break;    
+			    case "Down":
+				    movingButtonAngular.css('-webkit-animation-name', 'myDown') ;  
+				    newY += 100;       
+				    break;
+			}
+              
+              
+			movingButtonAngular.css('-webkit-animation-play-state', 'running') ;
+              
+			$timeout(function ()
+            { 
+				movingButton.style.left = newX ; 
+				movingButton.style.top = newY;
+				movingButtonAngular.css('-webkit-animation-play-state', 'none') ;          
+				movingButtonAngular.css('-webkit-animation-name', 'none') ;            
+			}, 1100);          
+		  }         
+	   });  
+    </script>
+</head>
+<body ng-app="myApp">
+    <div ng-controller="myCtrl" >
+        <button ng-click="myClick($event)">Left</button>
+        <button ng-click="myClick($event)">Right</button>
+        <button ng-click="myClick($event)">Up</button>
+        <button ng-click="myClick($event)">Down</button>
+    </div>
+    <button id="MovingButton" class="myButton">OK</button>
+</body>
+</html>

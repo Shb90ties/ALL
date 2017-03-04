@@ -1,0 +1,23 @@
+folder=$1
+string=$2
+shift
+shift
+echo -n >| outpt
+for file in $@
+do
+ count=0
+ exist=$( find $folder -name $file -type f | wc -l )
+ if [ $exist -gt 1 ]
+ then
+	( find $folder -name $file -type f ) >| tmp
+	while read x
+	do
+		echo "___________file=$x"
+		( cat $x | head -2 | tail -1 ) >| Line2
+		y=$( cat Line2 | egrep -o $string | wc -l )	
+		count=$[$count+$y]
+	done<tmp
+ fi
+ ( echo $file" "$count ) >> outpt
+done
+cat outpt | sort

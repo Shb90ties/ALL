@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>ToDo List</title>
+    <!--Urgent red,Critical orange,Normal green,If You Can ocean blue-->
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css" />
+    <style>
+        a{ text-decoration:none; }
+        .done{ color: gray; text-decoration:line-through; }
+    </style>
+</head>
+<body>
+    <input type="text" id="txt" style="width: 55%; display: inline-block;" />
+    <select id="Selct" style="width: 25%; display: inline-block;">
+        <option value="0">Urgent</option>
+        <option value="1">Critical</option>
+        <option selected="selected" value="2">Normal</option>
+        <option value="3">If You Can</option>
+    </select>
+    <button id="add" style=" width: 15%; display: inline-block;"
+            onclick="addList()">Add</button>
+    <p id="error" style="color:red"></p>
+    <hr style="border: 1px solid black;" />
+    <div id="container"></div>
+    <script type="text/javascript">
+        var colors = ["red", "orange", "green", "#2B65EC"];
+        var priority = ["Urgent", "Critical", "Normal", "If You Can"];
+        var list = new Array();
+
+        window.onload = installList;
+
+        function addList() {
+            var text = document.getElementById('txt').value;
+            var p = document.getElementById('error'); p.innerHTML = "";
+            if (text.length < 6 || text.length > 42) {
+                p.innerHTML = '<b> Text must be between 6 to 42 characters </b>';
+                return;
+            }
+            var select = document.getElementById('Selct').value;
+            var val = JSON.parse('{"priority":' + select +
+                      ', "text":"' + text + '", "status":"waiting", '
+                      + '"listGroup":'+select+' }');
+            list.push(val);
+            refreshList();
+        }
+
+        function refreshList() {
+            list.sort(compare);
+            document.getElementById('container').innerHTML = displayList();
+            try{
+                sessionStorage.setItem('todoList', JSON.stringify(list));
+            }catch(e){}
+        }
+
+        function installList() {
+            var temp = "";
+            try{
+                temp = sessionStorage.getItem('todoList');
+            }catch(e){}
+            if (temp != "" && temp != null && temp != undefined) {
+                list = JSON.parse(temp);
+                document.getElementById('container').innerHTML = displayList();
+            }
+        }
+
+        function compare(a, b) {
+            if (a.listGroup == b.listGroup) {
+                if (a.text > b.text) return 1;
+                if (a.text < b.text) return -1;
+                return a.text.length - b.text.length;
+            }
+            return a.listGroup - b.listGroup;
+        }
+
+        function displayList(){
+            var innrHTML = '<div style="width: 50%; ' +
+                    'display: inline-block; overflow: auto; ' +
+                    'word-wrap:break-word;">';
+            var innrHTMLb = '<div style="width: 25%; display: inline-block; ' +
+                'overflow: auto; word-wrap:break-word;  ">';
+            for (var i = 0; i < list.length; i++) {
+                if (list[i].status == "done") {
+                    innrHTML += '<p class="done">' + list[i].text + '</p>';
+                    innrHTMLb += '<p class="done">'+priority[list[i].priority]+'</p>';
+                    continue;
+                }
+                var j = list[i].priority;
+                innrHTML += '<p><a href="#" onclick="flagTask('+i+')" ' +
+                            ' style="color:' + colors[j] + '">' +
+                            list[i].text + '</a></p>';
+                innrHTMLb += '<p><a href="#" onclick="flagTask('+i+')"' +
+                            ' style="color:' + colors[j] + '">' +
+                            priority[j] + '</a></p>';
+            }
+            innrHTML += '</div>' + innrHTMLb + '</div>';
+            return innrHTML;
+        }
+
+        function flagTask(i) {
+            list[i].status = "done";
+            list[i].listGroup = 4;
+            refreshList();
+        }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+להריץ תשרת רק מ
+powershell
+להתקין
+pg
+ב
+powershell
+"npm install pg"
+או
+"npm install -S pg"

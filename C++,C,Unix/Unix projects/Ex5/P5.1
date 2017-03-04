@@ -1,0 +1,22 @@
+read fileList
+echo $fileList >| temp
+echo -n >| temp2
+counter=1
+while [ $counter -le $(wc -w <temp) ]
+do
+	(cut -d" " -f$counter <temp) >> temp2
+	counter=$[$counter+1]
+done
+sort temp2 >| temp
+echo -n >| temp2
+sum=0
+while read fileName
+do
+	for num in $(cat $fileName)
+	do
+		sum=$[$sum+$num]
+	done
+ (echo $fileName $sum) >> temp2
+ sum=0
+done<temp
+cat temp2

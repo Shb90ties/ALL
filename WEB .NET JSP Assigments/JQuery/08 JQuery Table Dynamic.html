@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+ 	<link rel="stylesheet" href="jquery.mobile-1.4.5.css" type="text/css" />
+
+
+	<script src="jquery-1.12.0.js"></script>
+
+
+	<script src="jquery.mobile-1.4.5.js"></script>
+
+    	<script type="text/javascript">
+
+$(document).bind('pageinit', function() {
+     	var new_tbody = $("<tbody>");
+     	var counter = 1;    
+        for (var r = 0; r < 4; r++) {
+           var new_row = $("<tr>");
+           for (var c = 0; c < 4; c++) {
+                var new_cell = $("<td>");
+                
+                var myButton = $('<button>');
+ 	     	    myButton.text(counter.toString());
+ 		        myButton.attr('tabindex',counter * 100 );
+                myButton.css('width', '60px');                        
+		myButton.css('height','60px');	     		    
+	            myButton.click ( function () { myClick(this);});
+	            myButton.appendTo(new_cell);
+	            
+                new_cell.appendTo(new_row);
+		        counter ++;
+           }
+	       new_row.appendTo(new_tbody);
+        }
+        new_tbody.appendTo($("#myTable"));
+});
+
+function myClick(clickedButton) 
+{
+	alert(clickedButton.innerHTML);
+//	alert(clickedButton.tabIndex );
+}
+
+</script>
+</head>
+<body>
+<table id="myTable"/>
+</body>
+</html>

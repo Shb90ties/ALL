@@ -1,0 +1,23 @@
+i=$1
+file=$2
+shift
+shift
+echo -n >| outpt
+( cat $file | tr -s " " "\n" ) >| wordsList
+while read x
+do
+ true=1
+	for char in $@
+	do
+		y=$( echo $x | egrep -o $char | wc -l )
+		if [ $y -ne $i ]
+		then
+			true=0
+		fi
+	done
+ if [ $true -eq 1 ]
+ then
+	( echo $x ) >> outpt
+ fi
+done < wordsList
+cat outpt

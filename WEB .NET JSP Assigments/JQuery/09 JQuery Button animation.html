@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+ 	<link rel="stylesheet" href="jquery.mobile-1.4.5.css" type="text/css" />
+
+
+	<script src="jquery-1.12.0.js"></script>
+
+
+	<script src="jquery.mobile-1.4.5.js"></script>
+
+    <style type=text/css>
+        .buttonAbsolutePosition{
+        background: #FF0000;
+        font-family: Arial;
+        font-size: XX-Large;
+        width: 120px;
+        height: 120px;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        }
+		.MyButton_
+        {
+            font-family: Arial;
+            font-size: XX-Large;
+            width: 70px;
+            height: 70px;
+            position: absolute;
+        }
+    </style>
+    <script type="text/javascript">
+
+    $(document).bind( "pageinit", function() 
+	{
+        var myButton = $("<button id='btn' class='buttonAbsolutePosition'>OK</button>");
+			// other examples with adding extra
+				// _______with top and left define at the button_________
+				//var myButton = $("<button id='btn' class='MyButton_' style=\"top: 100px; left: 100px\">OK</button>");
+				//________with top as an outside variable_____________
+				//var top = 20;
+				//var myButton = $("<button id='btn' class='MyButton_' style=\"top: "+top+"px; left: 100px\">OK</button>");
+        myButton.appendTo("body");
+        myButton.click(commonClick);
+    });
+
+    function commonClick(e)
+	{				// can be left: or top: , for direction
+       $(this).animate({left: '+=100',}, "fast" ); 
+    };
+</script>
+</head>
+<body>
+
+</body>
+</html>

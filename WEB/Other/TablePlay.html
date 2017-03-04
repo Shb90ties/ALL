@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://jsbin.com
+
+Copyright (c) 2017 by shb90 (http://jsbin.com/goxolo/268/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+<style id="jsbin-css">
+table, th, td{
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+thead{
+  background-color: aqua;
+}
+</style>
+</head>
+<body>
+  <form action="javascript:void(0)"
+        onsubmit="addRow()">
+    <input type="text" pattern="(.){3,15}" id="txt"
+           title="only characters up to 15" required />
+    <input type="submit" value="Add row">
+  </form>
+  <hr>
+  
+  <table>
+    <colgroup>
+      <col span="1" style="width:80%;"/>
+    </colgroup>
+    <thead>
+      <tr>
+        <th>
+          Text
+        </th>
+        <th>
+          Number
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th style="width:80%">
+          someText
+        </th>
+        <th>
+          1
+        </th>
+      </tr>
+    </tbody>
+  </table>
+  
+<script id="jsbin-javascript">
+function addRow(){
+  var txt = document.getElementById('txt').value;
+  var tabl = document.getElementsByTagName('table')[0];
+  var nextNum = (tabl.rows.length);
+  
+  var rowsInfo = document.getElementsByTagName('th');
+  var text = '';
+  for(var i=0; i<rowsInfo.length; i+=2){
+    text += rowsInfo[i].innerHTML+'<br>';
+  }
+  text += txt;
+  
+  var tr = document.createElement('tr');
+  var thA = document.createElement('th');
+  thA.innerHTML = text;
+  var thB = document.createElement('th');
+  thB.innerHTML = nextNum;
+  
+  tr.appendChild(thA);
+  tr.appendChild(thB);
+  tabl.appendChild(tr);
+}
+
+</script>
+</body>
+</html>

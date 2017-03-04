@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <link rel="stylesheet" type="text/css" href="styles.css"/>
+	<link rel="stylesheet" href="jquery.mobile-1.4.5.css" type="text/css" />
+	<script src="jquery-1.12.0.js"></script>
+	<script src="jquery.mobile-1.4.5.js"></script>
+	<script src=myComponent.js></script>
+	<script type="text/javascript">
+  	$(document).bind ("pagecreate", function (e)
+    {
+        $('#myComp1').myComponent();    // give myComp1 component features will show with "Hello world"
+        $('button').on("click",function(e)  // bind every button on the page with this
+                {           // on click this(the button) will trigger an event called eventA that sends this JSON array with it
+                    $(this).trigger("eventA",[{first:"value1",second:"value2"}]);
+                });
+    });
+                    // answering to the trigger ^
+    $(document).delegate('#myContentA','eventA',function(event,JsonObject)   // (where to change, the event, what to do(values)?) 
+                        {
+                           $('#label_Result').text(JsonObject.first+" , "+JsonObject.second); 
+                        });
+    </script>
+</head>
+<body>
+    <div data-role=page id=home>
+        <div data-role=content id="myContentA">
+            <p> content area </p>
+                <div id="myComp1" data-role="myComponent">
+                    <label id="label_Result"/>
+                    <button>Launch Event</button>
+                </div>
+        </div>
+    </div>
+</body>
+</html>

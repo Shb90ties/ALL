@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- installing width events based^ on device width 
+             rules using viewport 
+             1) elements cannot be bigger than device-width
+                if they are must be handled
+             2) content cannot be relied on particular viewpoint
+             3) use CSS @media! for tablet and phones screen width -->
+            
+    <link rel="stylesheet" href="StyleSheet.css" />
+    <script src="JavaScript.js"></script>
+</head>
+<body>
+    <div class="head">
+        My Article!
+    </div>
+    <div class="container">
+        <div class="bod-menu">
+            <ul>
+                <li>Store</li>
+                <li>Software</li>
+                <li>Remotes</li>
+                <li>Something</li>
+                <li>Digits</li>
+            </ul>
+        </div>
+        <div class="bod-contain">
+            <h1>Body</h1><hr />
+            <p id="w">width</p>
+            <img src="picc.jpg" />
+            <p>Picture changing with width</p>
+            <picture>
+
+                <source srcset="piccA.jpg" media="(min-width:768px)" />
+                <source srcset="piccB.jpg" />
+
+                <img src="piccB.jpg"/>
+            </picture>
+            <p>Video : </p>
+            <video controls>
+                <source src="mov_bbb.mp4" type="audio/mp4" />
+            </video>
+            <p>something</p>
+        </div>
+        <div class="bod-sider">
+            side notes!<br />
+            note 1 : ...<br />
+            note 2 : ...<br />
+            note 3 : ...<br />
+            note 4 : ...<br />
+            note 5 : ...<br />
+        </div>
+    </div>
+    <div class="footer">
+        &copy; belongs to someone!
+    </div>
+</body>
+</html>

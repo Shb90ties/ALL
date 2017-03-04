@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://jsbin.com
+
+Copyright (c) 2017 by shb90 (http://jsbin.com/goxolo/216/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+</head>
+<body>
+  <form action="javascript:void(0)"
+        onsubmit="addToTree()">
+  <input type="text" 
+      pattern="([0-9]([.]{0,1}))([0-9]{0,5})" required
+         title="only a number up to 5 digits!!" /><br>
+  <input type="submit" value="add a number" />
+  </form>
+  <hr>
+  <div id="container"></div>
+<script id="jsbin-javascript">
+var root = null;
+
+function add(root,node){
+  if( root == null ){ return node; }
+  if(root.value > node.value){
+    if(root.left){ add(root.left,node); }
+    else{ root.left = node; }
+  }else{
+    if(root.right){ add(root.right,node); }
+    else{ root.right = node; }
+  }
+  return root;
+}
+
+function BasicPrintTree(root){
+  if(root == null){ return; }
+  document.getElementById('container').innerHTML += '<br> '+root.value;
+  BasicPrintTree(root.left);
+  BasicPrintTree(root.right);
+}
+
+function getLevels(root,curr){
+  if(root == null){ return curr; }
+  var n = getLevels(root.left,curr);
+  var m = getLevels(root.right,curr);
+  return (Math.max(n,m)+1);
+}
+
+function printTree(root){
+   var strings = new Array();
+   var lgth = getLevels(root,0);
+   for(var i=0; i<lgth; i++){
+     strings.push("");
+   }
+  
+   function printLevel(root,curr,levels){
+     if(root == null){ 
+       if(levels > 0){
+         strings[curr] += '_,';
+         printLevel(null,curr+1,levels-1);
+         printLevel(null,curr+1,levels-1);
+         return 0;
+       }else{ return 0; }
+     }
+     var n = printLevel(root.left,curr+1,levels-1);
+     var m = printLevel(root.right,curr+1,levels-1);
+     var temp = Math.max(n,m);
+     for(var i=0; i<temp; i++){
+       strings[curr] += '_,';
+     }
+     strings[curr] += root.value+',';
+     return temp+1;
+   }
+  
+  printLevel(root,0,lgth);
+  var container = document.getElementById('container');
+  container.innerHTML = "";
+  for(var i=0; i<lgth; i++){
+    container.innerHTML += strings[i]+'<br>';
+  }
+}
+
+function addToTree(){
+  var newVal = document.getElementsByTagName('input');
+  var input_;
+  for(var i=0; i<newVal.length;i++){
+      if(newVal[i].type == "text"){
+          input_ = newVal[i].value;
+      }
+  }
+  
+  root = add(root,{value:Number(input_), left:null, right:null});
+  printTree(root);
+}
+
+printTree(root);
+
+</script>
+</body>
+</html>

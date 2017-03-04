@@ -1,0 +1,7 @@
+while read file
+ if [ -f "$file" ]
+  then
+    x=$(wc -l<$file)
+  else
+    ""
+ fi

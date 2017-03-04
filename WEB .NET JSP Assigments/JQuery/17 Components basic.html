@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="styles.css"/>
+	<link rel="stylesheet" href="jquery.mobile-1.4.5.css" type="text/css" />
+	<script src="jquery-1.12.0.js"></script>
+	<script src="jquery.mobile-1.4.5.js"></script>
+    <script src="myComponent.js"></script>
+    <style>
+        .red
+        {
+            height: 100px;
+            background-color: red;
+        }
+        .blue
+        {
+            height: 100px;
+            background-color: blue;
+        }
+        .green
+        {
+            height: 100px;
+            background-color: green;
+        }
+    </style>
+    
+	<script type="text/javascript">
+        $(document).bind ("pagecreate", function ()
+        {
+            var dynamicComponent = $("<div class=\"green\"> Diynamic made component 3 </div>");
+            dynamicComponent.appendTo('#myContent');
+            dynamicComponent.myComponent();
+            // $('[data-role="myComponent"]').myComponent();    
+	       //$('#myComp1').myComponent();  
+        });
+    </script>
+</head>
+<body>
+    <div data-role=page id=home>
+        <div data-role=content id="myContent">
+            <p> Window content </p>
+            <div id="myComp1" data-role="myComponent" class="red">
+                This is my component 1
+            </div>
+            <div id="myComp2" data-role="myComponent" class="blue">
+                This is my component 2
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,41 @@
+#header
+{
+    background: midnightblue;
+    height: 100px;
+    color: white;
+    text-align: center;
+    padding : 5px;
+}
+a
+{
+    color: blue;
+    text-decoration: none;
+}
+a:hover
+{
+    text-decoration: underline;
+}
+#bottom
+{
+    background: midnightblue;
+    text-align: center;
+    float: bottom;
+    color: white;
+    clear: both;
+}
+#category
+{
+    background: midnightblue;
+    width: 60%;
+    height: 80px;
+    text-combine-upright: all;
+    float: left;
+    color: white;
+    text-align: center;
+}
+#category :hover
+{
+    background: burlywood;
+}
+
+

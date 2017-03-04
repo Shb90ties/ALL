@@ -1,0 +1,47 @@
+( echo $@ | egrep -o "^.*-dirs" ) >| string1
+( echo $@ | egrep -o "\-dirs.*$" ) >| string2
+( cat string1 | tr -s " " "\n" ) >| tmp
+head -$[$(cat tmp | wc -l)-1] <tmp >| string1
+( cat string2 | tr -s " " "\n" ) >| tmp
+tail -$[$(cat tmp | wc -l)-1] <tmp >| string2
+echo -n >| outpt
+while read x
+do
+ FullsetTruth=1
+ echo -n >| outptLine
+ ( echo -n $x" " ) >> outptLine
+ while read y
+ do
+	Times=0
+	echo -n >| fileList
+	( find $y -type f ) >| fileList
+	if [ $(cat fileList | wc -L) -gt 0 ]
+	 then
+		while read z
+		do
+			echo -n >| tmp
+			for word in $(echo $(cat $z))
+			do
+				( echo $word ) >> tmp
+			done
+		if [ $( egrep -l "^$x$" tmp | wc -L) -gt 0 ]
+		then
+			Times=$[$Times+1]
+		fi
+		done<fileList
+	 fi
+	if [ $Times -eq 0 ]
+	then
+		FullsetTruth=0
+	fi
+	( echo -n $Times" " ) >> outptLine 
+ done<string2
+ if [ $FullsetTruth -eq 1 ]
+ then
+	(echo "ALL" ) >> outptLine
+ else
+	(echo "NOTALL" ) >> outptLine
+ fi
+ ( cat outptLine ) >> outpt
+done<string1
+cat outpt

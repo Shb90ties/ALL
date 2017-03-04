@@ -1,0 +1,2 @@
+gcc fileName.c
+./a	or	./a.out

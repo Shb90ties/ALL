@@ -1,0 +1,32 @@
+<html>
+<head>
+    <link rel="stylesheet" href="jquery.mobile-1.4.5.css" type="text/css" />
+    <script src="angular.js"></script>
+    <script type="text/javascript">
+        var myApp = angular.module('myApp', []);
+        
+        myApp.controller("myCtrl", function($scope) 
+        {
+           $scope.count = 0;
+           $scope.addButton = function() 
+            {
+                $scope.count++;       
+                var newButton = '<button type="button"  onclick=alert(' + $scope.count +')  id=' + $scope.count + '>Show alert #' + $scope.count + '</button>';         
+                var newButtonElement = angular.element(newButton);
+                newButtonElement.css('backgroundColor','yellow');
+                var whereAppend = angular.element(document.querySelector('#space-for-buttons')); 
+                whereAppend.append(newButtonElement);
+            }
+        }); 
+    </script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <button type="button" id="myButton" ng-click="addButton()">addButton</button>
+        <div id="space-for-buttons"></div>
+    </div>
+    <hr>
+    Under the angular App
+</body>
+</html>
+

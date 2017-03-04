@@ -1,0 +1,12 @@
+tr -s " " "\n" < $1 | sort | uniq -c | tr -s " " | cut -c2- >| temp
+echo -n >| tmp
+while read x
+do
+	echo $x >| tmp1
+	num=$(cut -d" " -f1 tmp1)
+	if [ $num -ge 3 -a $num -le 5 ]
+	 then
+		echo $x >> tmp
+	fi
+done<temp
+wc -l <tmp

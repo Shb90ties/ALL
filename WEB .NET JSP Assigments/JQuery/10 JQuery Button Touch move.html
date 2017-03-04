@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel=stylesheet href=styles.css />
+	<link rel="stylesheet" href="jquery.mobile-1.4.5.css" type="text/css" />
+
+	<script src="jquery-1.12.0.js"></script>
+
+
+	<script src="jquery.mobile-1.4.5.js"></script>
+
+	<script type="text/javascript">
+
+
+
+   var initTouchX, initTouchY;
+   var initButtonX , initButtonY;
+   var flagTouch = false;
+
+  $(document).bind('pageinit', function() {
+    var myButton = $("<button></button>");
+	$(myButton).attr('id', 'btn1' );
+	$(myButton).attr('class', 'buttonAbsolutePosition' );
+	$(myButton).text('OK' );
+
+	$(myButton).css("left", 200);
+	$(myButton).css("top", 200);
+    $(myButton).appendTo("body");
+
+    $("#btn1").bind("touchstart", function(e) {
+        var touch = event.targetTouches[0];
+        initTouchX = touch.pageX;
+        initTouchY = touch.pageY;
+
+        var tempX_str = $(this).css("left");
+		var tempY_str = $(this).css("top");
+
+        var indexEnd = tempX_str.indexOf("px");
+        tempX_str = tempX_str.slice(0, indexEnd);
+        initButtonX = parseInt(tempX_str);
+
+        indexEnd = tempY_str.indexOf("px");
+        tempY_str = tempY_str.slice(0, indexEnd);
+        initButtonY = parseInt(tempY_str);
+
+        flagTouch = true;
+  		e.preventDefault();
+     });
+
+    $("#btn1").bind("touchmove", function(e) {
+        if( flagTouch == false)
+            return;
+        var touch = event.targetTouches[0];
+        var currTouchX = touch.pageX;
+        var currTouchY = touch.pageY;
+
+        var deltaTouchX = currTouchX - initTouchX;
+        var deltaTouchY = currTouchY - initTouchY;
+
+        $(this).css("left", initButtonX + deltaTouchX);
+		$(this).css("top", initButtonY + deltaTouchY);
+		e.preventDefault();
+     });
+
+     $("#btn1").bind("touchend", function(e) {
+        flagTouch = false;
+        e.preventDefault();
+     });
+});
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

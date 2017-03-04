@@ -1,0 +1,20 @@
+#!/bin/awk -f
+BEGIN{	first=ARGV[1]; }
+{	if( ( FNR == 1 ) && ( FILENAME != first ) )
+	{ L[CF]=LC }
+	for(i=1; i <= NF; i++)
+	{ A[FILENAME,FNR,i]=$i }
+	R[FILENAME,FNR]=NF;
+	LC=FNR;	CF=FILENAME;
+	}
+END { 	L[CF]=LC;
+	for(i=1; i < ARGC; i++)
+	{	f=ARGV[i];	l=L[f];
+		print "file",f;
+		for(j=1; j <= l; j++)
+		{	words=R[f,j];
+			print "line",j;
+			for(k=1; k <= words; k++)
+			{	put=A[f,j,k]
+				print "word",put; } } }
+}

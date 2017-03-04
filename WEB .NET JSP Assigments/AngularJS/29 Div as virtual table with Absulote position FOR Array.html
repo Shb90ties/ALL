@@ -1,0 +1,47 @@
+<html>
+<head>
+     <link rel="stylesheet" href="jquery.mobile-1.4.5.css" type="text/css" />
+
+     <script src="angular.js"></script>
+
+    <style type=text/css>
+        .buttonAbsolutePosition
+        {
+            background: #FF0000;
+            font-family: Arial;
+            font-size: XX-Large;
+            width: 60px;
+            height: 60px;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+        }
+    </style>
+
+    <script type="text/javascript">
+
+        var app = angular.module('myApp', []);
+        app.controller('myCtrl', function ($scope)
+        {
+            $scope.customFunction = function (count)
+            {
+                return Math.floor(count / 3);
+            }
+            $scope.myClick = function ($event) 
+            {
+                alert(event.target.id);
+            }
+        });
+
+    </script>
+
+</head>
+<body ng-app="myApp">
+            <!-- ng-repeat = for(count 0 -> length){ make new button id=count position absulote ect.. }-->
+    <div ng-controller="myCtrl" ng-repeat="count in [0, 1, 2, 3, 4, 5, 6, 7]">
+            <!-- in the {{}} can call Angular virables -->
+            <button id="{{count}}" ng-style="{left:{{count % 3 * 60}}+'px', top:{{customFunction(count)* 60}}+'px'}" ng-click="myClick(event)" class="buttonAbsolutePosition">{{count}}</button> 
+    </div>
+</body>
+</html>
+

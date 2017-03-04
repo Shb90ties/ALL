@@ -1,0 +1,25 @@
+read file
+read x
+echo $x >| temp
+while read z
+do
+ (echo $z)>>temp
+done
+sort -n temp >| temp2
+echo  >| temp3
+tr "\n" "\000" <temp3 >| temp4
+for l in $(cat $file)
+do
+ echo $l >| temp
+	for p in $(cat temp2)
+	do
+	 if [ $p -le $(wc -c<temp) ]
+	 then
+	  (cut -c $p <temp) >>temp3
+	 fi
+	done
+ tr "\n" "\000" <temp3 >| temp
+ (echo $(cat temp)) >>temp4
+ echo >| temp3
+done
+cat temp4

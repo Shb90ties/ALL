@@ -1,0 +1,61 @@
+<html>
+<head>
+     <link rel="stylesheet" href="jquery.mobile-1.4.5.css" type="text/css" />
+
+     <script src="angular.js"></script>
+
+    <script type="text/javascript">
+        var app = angular.module('myApp', []);
+        app.controller('PlusMinusCtrl_1', function ($scope, PlusMinusService) {
+            $scope.PlusMinus = function (e) {
+                var elem = angular.element(e.srcElement);
+
+                var first = parseInt($scope.myModel_1.FirstInput);
+                var second = parseInt($scope.myModel_1.SecondInput);
+                if (elem.text() == '+')
+                    $scope.result = PlusMinusService.Plus(first, second);
+                else
+                    $scope.result = PlusMinusService.Minus(first, second);
+            }
+        });
+
+        app.controller('PlusMinusCtrl_2', function ($scope, PlusMinusService) {
+            $scope.PlusMinus = function (e) {
+                var elem = angular.element(e.srcElement);
+
+                var first = parseInt($scope.myModel_2.FirstInput);
+                var second = parseInt($scope.myModel_2.SecondInput);
+                if (elem.text() == '+')
+                    $scope.result = PlusMinusService.Plus(first, second);
+                else
+                    $scope.result = PlusMinusService.Minus(first, second);
+            }
+        });
+
+        app.service('PlusMinusService', function () {
+            this.Plus = function (a, b) { return a + b; };
+            this.Minus = function (a, b) { return a - b; };
+        });
+    </script>
+</head>
+<body ng-app="myApp">
+<div ng-controller="PlusMinusCtrl_1">
+    <input type="text" ng-model="myModel_1.FirstInput"/>
+    <button ng-click="PlusMinus($event)">+</button>
+    <button ng-click="PlusMinus($event)">-</button>
+    <input type="text" ng-model="myModel_1.SecondInput"/>
+    =
+    <label> {{result}} </label>
+</div>
+<br />
+<div ng-controller="PlusMinusCtrl_2">
+    <input type="text" ng-model="myModel_2.FirstInput"/>
+    <button ng-click="PlusMinus($event)">+</button>
+    <button ng-click="PlusMinus($event)">-</button>
+    <input type="text" ng-model="myModel_2.SecondInput"/>
+    =
+    <label> {{result}} </label>
+</div>
+</body>
+</html>
+

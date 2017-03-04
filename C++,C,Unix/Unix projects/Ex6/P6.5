@@ -1,0 +1,9 @@
+while [ $# -gt 0 ]
+do
+	num=$(echo "$1 ")
+	words=$(tr -s " " <$1 | tr " " "\n" | sort | uniq | wc -l)
+	big=$(tr -s " " <$1 | tr " " "\n" | uniq -c | sort -n | tail -1 | 
+tr -s " " | cut -d " " -f2)
+	echo $num $words $big
+	shift
+done

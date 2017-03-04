@@ -1,0 +1,451 @@
+﻿/* <link rel="stylesheet" href="StyleSheet.css" /> */
+
+/* .class , tag , #id */
+/* .c{..} => <.. class="c"> */
+/* p{...} => <p ...></p> */
+/* #myID{...} => <... id="myID"> */
+    /* combinations */
+    /* p.center{...} => <p .. class="center"></p> */
+    /* h1, h2, p{....} => <p../><h1>/<h2>/ effects all */
+/* [class*="cont"]{...} all classes that start with "cont"
+	[tags*="cont"]{....} */
+/* a:hover => element:event */
+/* inherit => class takes value from the parent tag class */
+/* initial => default */
+/* length => set on the edge, can have negative numbers */
+/* 
+    attribute {type,title,name,target...}
+    [attribute="value"]{..} will match elements with an attribute that is equale
+    a[target] {..} all links that has a target attribute
+    a[target="_blank"]{..} all links that their target attribute is _blank
+
+    *= // CONTAINS
+    [class*="te"]{...} all that contains "te" in their className
+    ~= // CONTAINS FULL WORD
+    [title~="flower"]{...} all that has "flower" in their title
+    ^= // AT BEGINING
+    [class^="top"]{..} all that has "top" at the start of their className
+    |= // FULL AT BEGINING
+    [class|="top"]{..} all that has "top" as a whole word at the start
+    $= // AT END
+    [class$="test"]{..} all that has "test" at the END
+    :not([..=..]){..} // NOT CONDITION
+    p:not([style*=display]){..} all <p> that their style doesn't contain display
+*/
+/*
+    CSS selector
+    space {decendant} , > {child} , + {adjacent sibling}, ~ {general sibling}
+
+    div p {....} // all p that are under div
+    div > p {....} // all p that has a direct parent div
+    div + p {....} // only the p that comes after a div
+        ^ only the FIRST sibling after
+    div ~ p {...} // all the p that comes after a div
+*/
+/* all:inherit => all the arrguments inherited from the parent */
+/* FUNCTIONS => @ , @keyframes fff{ from{...} to{...} } */
+
+body {
+    background-color: lightblue;
+    color: navy; /* #ff0000 || rgb(255, 0, 0) || rgba(5,5,5,0.5) */
+                /* HEX || RGB || RGBalpha */
+    text-align: center; /* left, right, justify(all lines same width) */
+    font-size: x-large; /* or 25px */
+    font-family: Arial;
+}
+a{
+    text-decoration: overline;
+        /* underline, line-through, overline, none */
+    text-transform: lowercase;
+        /* uppercase, capitalize(This Is Some Text) */
+    letter-spacing: 3px; /* can be negative */
+    /* word-spacing: 10px; alternative ^ */
+    text-shadow: 1px 2px grey;
+        /*^ left top color 
+            blur value: left top stretch color 1px 1px 10px red */
+}
+br.big_space{
+    line-height: 3; /* lines between a elements */
+}
+h3{
+    margin-left: 150px; /* writing 150px left form start  */
+    color: rgb(50,0,10); /* (255,255,255) black , (0,0,0) white */
+}
+div.with_img{
+    /* shortcut
+        background: #00ff00 url("smiley.gif") no-repeat fixed center;
+            :color img [repear-[x|y]|no-repeat] attachment position;
+    */
+    background-image: url("1UP.ico");
+    background-repeat: no-repeat; 
+        /* repeat-y => verticle || repeat-y => horizontale */
+    background-position-x: center;
+    background-position-y: top;
+    background-attachment: fixed; /* image won't move when scrolling */
+	
+    border-style: solid; /* double,groove,ridge,inset,outset,none,hidden.. */
+        /* list^ https://www.w3schools.com/css/css_border.asp */
+    /* rounded edge */
+    /* border-radius: 9px; => all edges
+                    : top-left top-right bottom-right bottom-left */
+    border-radius: 5px 15px; /* will repeat itself to bottom */
+    padding: 5px; /* gap between info~border */
+        /* padding-top: 5px; padding-right: 5px;
+            padding: top right bottom left; padding: 5px 1px 1px 5px; */
+    border-color: black;
+    border-width: 5px; /* shortcut => border: 5px solid black; */
+}
+div.border_img{
+    border: 10px solid transparent;
+    padding: 15px;
+    border-image: url("1UP.ico") round 10; /* round = stretch/repeats */
+}
+div.left_side{
+    border-left: 5px groove black;
+    border-radius: 5px 1px 1px 5px;
+    padding: 10px;
+}
+p.margin{
+    margin: 10px; /* => ALL
+        margin: 10px 5px 5px 10px;
+              : top right bottom left  */
+}
+.size_by_px{
+    min-height: 50px; /* [min|max]-[width|height] */
+    height: 100px;
+    max-height: 150px;
+    width: 100px;
+    border: 1px solid black;
+
+    float: left;
+}
+.size_by_percnt{
+    height: 10%;
+    width: 50%;
+}
+.box{
+    width: 250px;
+
+    outline-style: solid; /* same styles as borders */
+    outline-color: white;
+    outline-width: 2px;
+    /* shortcut : outline: 2px solid white; width style color; */
+    border: 20px solid black;
+    padding: 20px;
+    margin: 20px;
+
+    float: right;
+}
+.box:hover{
+    border: 20px solid white;
+}
+div.right_to_left{
+    border: 1px solid black;
+
+    direction: rtl; /* ltr , similar to float */
+    text-overflow: ellipsis; /* clip */
+    
+    text-shadow: 2px 2px 10px black;
+		/* for element use : box-shadow: .... */
+			/* : left top spread color */
+}
+.transform_arg{
+    border: 1px solid black;
+
+    transform: rotate(180deg);
+}
+.scale_arg{
+    border: 1px solid black;
+
+    transform: scaleX(2); /* scale ~ stretch */
+        /* transform: scale(2); => moves scaleX&scaleY by 2 */
+}
+.skew_arg{
+    border: 1px solid black;
+
+    transform: skew(10deg); /* Makbilit div */
+}
+.transformOrigin{
+    border: 1px solid black;
+
+    transform: rotate(7deg);
+    transform-origin: 10% 40%; /* x% y% , left% top%
+            how much can it move out from the origin position */
+}
+.transformStyle {
+    border: 1px solid black;
+
+    transform: rotate(7deg);
+    transform-style: preserve-3d; /* for child elements 
+        flat (don't preserve its 3D) */
+}
+.transition{
+    background-color: white;
+    width: 300px;
+    transition: width 2s; /* converting to event.width 2 seconds steps */
+    /* ^transition-timing-function: ease-out; alternative^
+           linear  ease  ease-in  ease-out  ease-in-out  */
+    transition-delay: 2s; /* delay the effects by 2 seconds */
+    transition-duration: 1s; /* duration of the transtition */
+}
+.transition:hover{
+    background-color: brown;
+    width: 100%;
+}
+.user_select{
+    user-select: none;
+}
+.img_text_alig{ 
+    vertical-align: middle; /* top , middle , bottom */
+     /* elements will be in the middle of the element */
+}
+input[type=text]{
+    width: 100px;
+    transition: width 2s;
+    transition-duration: 1s;
+}
+input[type=text]:focus{
+    width: 300px;
+}
+.word_wrap{
+    width: 150px;
+    border: 1px solid black;
+    float: left;
+
+    word-break: break-all; /* keep-all moves the word to the next line */
+}
+.word_wrap_original{
+    width: 150px;
+    border: 1px solid black;
+
+    word-wrap: hyphenate;
+        /* break-word, normal */
+}
+.background_Img{
+    position: absolute;
+    z-index: -1;
+        /* -1 value => it will be displayed behind the text */
+}
+.font_play{
+    font-family: 'Times New Roman';
+    font-size: 15px;
+    font-weight: bold; /* number (100*x) or bold */
+    font-variant: small-caps; /* convert a-z to a small A-Z */
+}
+ul{
+    width: 300px;
+    float: right;
+
+    list-style-image: url("1UP.ico");
+    list-style-position: inside; 
+        /* the icon/shape is above the text
+           outside is regular */                        
+}
+.clippedIMG{
+    position: absolute;
+    clip: rect(0px,50px,50px,0px);
+        /* (x1,y1,x2,y2) => {0,50},{50,0} */
+}
+.changeCursor{
+    background-color: white;
+    width: 150px;
+
+    cursor:crosshair;
+        /* auto(default),e-resize,grab,help,move,n-resize
+            ne-resize,nw-resize,pointer(link),progress,s-resize,
+            se-resize,sw-resize,text,w-resize,wait(loading),not-allowed,no-drop */
+}
+q:lang(no){
+    quotes: "!~!~!" "!~!~!";
+    /* puts !~!~! at the start&end of the p */
+}
+p.blackMark{
+    color: black;
+}
+p.blackMark::selection{
+    color:red;
+    background-color:pink;
+}
+.hoverAplha{
+    border:1px solid black;
+    opacity: 0.3;
+}
+.hoverAplha:hover{
+    border:1px solid black;
+    opacity: 1;
+}
+
+.dropDown_MENU{
+    position:relative;
+    display: inline-block;
+    cursor: pointer;
+}
+.dropDown_CONTENT{
+    display: none;
+    position: absolute;
+    z-index: 1;
+}
+.dropDown_MENU:hover .dropDown_CONTENT{
+    /* when it hovers => all the children under it... */
+    display: block;
+}
+.movingAround{
+    width: 50px;
+    height: 50px;
+    background-color: red;
+    z-index: -1;
+
+    position: relative;
+    animation: moveAroundOBJ 5s infinite;
+        /* function timeBetweenCalls NumberOfCalls */
+    animation-delay: 1s;
+    animation-duration: 2s;
+    animation-direction: alternate-reverse; /* can be seperated */
+        /* animation-direction: alternative,reverse */
+}
+@keyframes moveAroundOBJ{
+    from {left: 0px;}
+    to {left: 300px;}
+}
+.backfaced{
+    transform: rotateY(180deg);
+    backface-visibility: hidden;
+        /* used for rotation visible|hidden */
+}
+.img_color_blender{
+    background: linear-gradient(to right,blue,lightblue);
+    /* radial-gradient(...) circle */
+    /* background-blend-mode: darken; {IN CSS3}
+        normal,multiply,screen,overlay,darken,lighten
+        color-dodge,saturation,color,luminosity */
+}
+.menu_bar{
+    padding-left: 100px;
+    margin-left: -100px;
+
+    padding-right: 100px;
+    margin-right: -100px;
+
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    background-color: black;
+    color: white;
+}
+
+
+/*
+    Events/Status AKA Pseudo-classes
+    <IN ALL ELEMENTS>
+        ::after { do something to a content that comes after this element }
+        ::before { do something to a content that comes before this element }
+        ::first-letter { applies to the first letter in the element }
+        ::first-line { applies to the first line in the element }
+        ::selection { applies to the text the user marked }
+    <href>|<a>|<div>...
+        :focus { when mouse clicked on the element }
+        :hover { when mouse over the element }
+        :link { when adding href="" to an element }
+        :active { when user clicked the link }
+        :visited { if user already clicked on the link }
+    <q><p>
+        :lang(sign)
+            { <q lang="n">..</q> => !!...!! } { q:lang(n){ quotes: "!!" "!!"; }}
+    <input>
+        :checked { every input that is checked=checked }
+        :disabled { every input that its disabled=true }
+        :focus { user clicked on the input element }
+        :invalid { all inputs that has an invalid input }
+        :valid { if the input is valid }
+        :read-only { input elements that has readonly value }
+        :read-write { input elements that has NO readonly value }
+        :required { input that has required trigger, exp: when textbox is empy }
+    <p>|<div>...
+        :empty { element that has no children }
+        [usually in lists and tables]
+        :first-child { the first element that is created under it }
+        :first-of-type { first child that is the same type of the parent }
+        :last-child { reverse ^ }
+        :last-of-type { ^ }
+        :nth-child(x) { the x'th child of the element }
+        :nth-of-type(x){ the x'th child that is the same type of the element }
+        :only-child { all the children of the element }
+        :only-of-type { all the children that are the same type of the element }
+        :not(p,div..) { p:not(div){..} , all the p's that are not div }
+        :root { the parent of the current element }
+
+
+    opacity : 0.5; // alpha 50%
+
+    display: inline; // display elements inline like <span>
+        :none;
+        :block; // default
+        :flex;
+        :inline-block; // display elements inline inside a container
+        :inline-table;
+        :list-item // display a span like a <li>
+
+
+    float: right; // left=0; top=what it was
+        :left; // left=edge of the line; top=what it was
+    clear: left; // has to match the float next to it
+        :right; // for elements around\after the floating element
+        :both;
+
+    Align stretch(default)
+    text-align:[right|center|left]
+    align-items:[center|stretch|flex-end|flex-start|baseline];
+    align-self: ...^
+    align-content:[space-around|space-between|...^]
+    vertical-align:[middle|bottom|baseline|central|top|text-bottom|text-top]
+
+    position: static; // always positioned according to the flow of the page
+        :relative; 
+            // like absolute but starts from its original position
+        :fixed;
+            // relative to the view point, MOVES WITH THE PAGE
+            // followed up by bottom: 0; or right: or left: or top:
+                // bottom: 1px form bottom; right: 1px; left: 1px; top: 1px;
+        :absolute;
+            // can be positioned anywhere in the page
+                // z-index: -1||+1; for priority of showing the element
+    
+    overflow: scroll; // adds a scroll bar
+        :visible; (default) text goes outside the div
+        :hidden; // cuts the text
+        :auto; (BEST) adds a scroll bar ONLY IF NEEDED
+    overflow-x | overflow-y // deals with overflow from specific angle
+
+    list-style-type: circle; { put in the ul,ol / not li }
+        :square;
+        :upper-roman;
+        :lower-alpha;
+    list-style-image: url('imag.jpg');
+    list-style-position: inside; { where is the icon/shape }
+        :outside;
+
+    table, th, td{
+        border: 1px solid black;
+        border-collapse: collapse; ( for tables )
+        border-spacing: 10px 50px; ( left top )
+    }
+    table{...} (only covers the borders of the table not cells)
+    td{ vertical-align: bottom; } ( text will be on the bottom of cell )
+    [tr|td]:nth-child(even){ .... }
+            // every two rows or columns
+
+    forms inputs
+        input[type=[text|checkbox|select.....]]
+
+     visibility: hidden;
+        visible;
+        collapse; {for table traditional table lines}
+
+    white-space: normal; // for starting new lines without br
+        normal; {default :converts all white space to one}
+        nowarp; {white space into one, text never wrap to the next line}
+        pre; {same as ^ : also have gap from top }
+        pre-line; {same as normal also have gap from top}
+    
+    position: absolute; {default place is its parent x,y}
+*/

@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+
+     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.js"></script>
+
+    <script type="text/javascript">
+
+	  function doSomething () 
+	  {
+		alert('ONE');
+	  };
+
+	  $(document).ready(function()
+	  {
+		alert("TWO");
+
+		$('#myButton').click(function() 
+		{
+			doSomething();
+		});
+
+	  });
+
+</script>
+
+</head>
+<body>
+
+<button id="myButton">Click here </button>
+
+</body>
+</html>
+
+
+
+
+
+
+
+

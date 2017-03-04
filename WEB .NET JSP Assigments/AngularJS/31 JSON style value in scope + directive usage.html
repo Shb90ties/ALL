@@ -1,0 +1,23 @@
+<html>
+<head>
+    <link rel="stylesheet" href="jquery.mobile-1.4.5.css" type="text/css" />
+    <script src="angular.js"></script>
+	<script type="text/javascript">
+        angular.module('myApp', []).controller('myCtrl', ['$scope', function ($scope) {
+                  $scope.customer = {
+                      name: 'Naomi',
+                      address: '1600 Amphitheatre'
+                  };
+              }]).directive('myCustomer', function () {
+                  return {
+                      template: 'Name: {{customer.name}} Address: {{customer.address}}'
+                  };
+              });
+    </script>
+</head>
+<body ng-app="myApp">
+    <div ng-controller="myCtrl">
+        <div my-customer></div>
+    </div>
+</body> 
+</html>

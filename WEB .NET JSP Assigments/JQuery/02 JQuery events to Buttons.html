@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+
+<script type="text/javascript">
+
+	function Click1() 
+	{
+	  alert("1");
+	}
+
+	function Click2() 
+	{
+	  alert("2");
+	}
+	function Click3() 
+	{
+	  alert("3");
+	}
+	function Click4() 
+	{
+	  document.getElementById('button2').onclick = null;
+	  document.getElementById('button3').removeEventListener("click", Click3);
+	}
+  
+	window.onload=function() 
+	{
+		document.getElementById('button2').onclick = Click2;
+		document.getElementById('button3').addEventListener("click", Click3);
+		document.getElementById('button4').addEventListener("click", Click4);
+	}
+
+</script>
+</head>
+<body>
+	<input type="button" id="button1" value="1" onclick="Click1()" />
+	<input type="button" id="button2" value="2" />
+	<input type="button" id="button3" value="3" />
+	<input type="button" id="button4" value="4" />
+</body>
+</html>

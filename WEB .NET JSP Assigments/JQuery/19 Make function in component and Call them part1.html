@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <link rel="stylesheet" type="text/css" href="styles.css"/>
+	<link rel="stylesheet" href="jquery.mobile-1.4.5.css" type="text/css" />
+	<script src="jquery-1.12.0.js"></script>
+	<script src="jquery.mobile-1.4.5.js"></script>
+	<script src=myComponent.js></script>
+	<script type="text/javascript">
+    $(document).bind("pagecreate", function() 
+    {
+        $('#myComp1').myComponent();
+        $('button').bind("click", function(e) 
+        {
+            var temp1 = $('#myInput1').val();
+            var temp2 = $('#myInput2').val();   // luanch myFunction in the component with the values of temp1 and temp2
+             $("#myComp1").myComponent ("myFunction", temp1, temp2); // myFunction is in the myComponent.js file
+        });                                                 // where all the structure of the component are
+    });
+    </script>
+</head>
+<body>
+<div data-role=page id=home>
+    <div data-role=content>
+        <p> Window content </p>
+        <div id="myComp1" data-role="myComponent">  
+        </div>
+        <input id="myInput1" type="text" value=""/>
+        <input id="myInput2" type="text" value=""/>
+        <button id="myButton" type="button">OK</button>
+    </div>
+</div>
+</body>
+</html>

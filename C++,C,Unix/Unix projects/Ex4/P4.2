@@ -1,0 +1,19 @@
+ls . >| temp
+sum=0
+current=0
+for x in $(cat temp)
+do
+ if [ -f "$x" ]
+  then
+   if [ $(wc -l<$x) -gt $current ]
+   then
+    current=$(wc -l<$x)
+    currentFile="$x"
+    sum=$[$sum+$(wc -l<$x)]
+   else
+    sum=$[$sum+$(wc -l<$x)]
+   fi
+ fi
+done
+echo "$currentFile::$current"
+echo $sum

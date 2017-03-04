@@ -1,0 +1,28 @@
+read x
+echo $x >| temp
+num1=$(cut -d" " -f1 temp)
+num2=$(cut -d" " -f2 temp)
+echo $num2 >| num2
+num3=$(cut -d" " -f3 temp)
+num4=$(cut -d"-" -f2 num2)
+seq $num1 $num2 $num3 >| temp2
+for z in $(cat temp2)
+do
+ t=$z
+done
+for x in $(cat temp2)
+do
+ if [ $x -eq $num1 ]
+  then
+   echo $num1 >| temp
+ else
+  if [ $x -eq $t ]
+   then
+   tr "\n" @ <temp >| temp3
+    (echo @$x)>>temp3
+  else
+   (echo @$x)>>temp
+  fi
+ fi
+done
+cat temp3

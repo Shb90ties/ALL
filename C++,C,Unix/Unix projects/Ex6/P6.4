@@ -1,0 +1,4 @@
+tr -s " " "\n" <$1 | sort | uniq -c | tr -s " " | cut -c2- | sort >| temp
+num=$(tail -1 <temp | cut -d " " -f1)
+egrep "^$num" temp | cut -d " " -f2 | sort -r | tr "\n" ","
+echo

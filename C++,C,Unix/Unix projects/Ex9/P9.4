@@ -1,0 +1,38 @@
+#!/bin/awk -f
+BEGIN{ 	first=ARGV[1];	sm=0; }
+{	if( ( FNR == 1 ) && ( FILENAME != first ) )
+	{ L[CF]=LC;
+	  S[CF]=sm;
+	  sm=0; }
+	for(i=1; i <= NF; i++)
+	{ A[FILENAME,FNR,i]=$i;
+		sm=sm+$i;	 }
+	R[FILENAME,FNR]=NF;
+	LC=FNR;	CF=FILENAME;
+	}
+END{	S[CF]=sm;  L[CF]=LC;  max="null";
+for(i=1; i < ARGC; i++)
+{	file=ARGV[i];
+	nr=L[file]; 	nf=R[file,1];	T=1;
+	num=0;  numL=0;  numLt=0;  numR=0;
+	for(j=1; j <= nf; j++)
+	{	num=num+A[file,1,j];
+		numL=numL+A[file,nr,j];		}
+	if( num != numL )
+	{	T=0;	}
+	for(k=1; k <= nr; k++)
+	{	numLt=numLt+A[file,k,1];
+		numR=numR+A[file,k,nf];		}
+	if( ( num != numLt ) || ( num != numR ) )
+	{	T=0;	}
+	if( T == 1 )
+	{	print file" YES";	}
+	else
+	{	print file" NO";	}
+	sum=S[file];
+	if( max == "null" )
+	{	max=sum;	}
+	if( ( max != "null" ) && ( sum > max ) )
+	{	max=sum;	}	}
+	print max;
+}

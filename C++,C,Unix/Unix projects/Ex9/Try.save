@@ -1,0 +1,6 @@
+#!/bin/awk -f
+BEGIN{}
+{	for(i=1; i<=NF ;i++)
+	{ A[NR,i]=$i }		}
+END{ for(i=1; i<NR ;i++)
+	{ print A[i,1],A[i,2],A[  }

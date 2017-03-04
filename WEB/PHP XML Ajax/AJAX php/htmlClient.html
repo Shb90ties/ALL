@@ -1,0 +1,32 @@
+<html>
+	<head>
+		<script>
+			function showTEXT(strng){
+				var d = document.getElementById("TXThint");
+				if(strng.length == 0){
+					d.innerHTML  = "empty";
+				}
+				else{	// make an xmlHTTP request to the PHP page //
+					var xmlHTTP = new XMLHttpRequest();
+					xmlHTTP.onreadystatechange = function()
+					{
+						if(this.readyState == 4 && this.status == 200)
+						{
+							d.innerHTML = this.responseText;
+						}
+					}
+					xmlHTTP.open("GET", "phpServer.php?q="+strng, true);
+					xmlHTTP.send();
+				}
+			}
+		</script>
+	</head>
+	
+	<body>
+		<p>Asyncronize Text :<br>(type '555' or 'headline' or something else)</p>
+		<form>
+			<input type="text" onkeyup="showTEXT(this.value)"><br>
+			<div id="TXThint"></div>
+		</form>
+	</body>
+</html>

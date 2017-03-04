@@ -1,0 +1,47 @@
+<html>
+<head>
+     <link rel="stylesheet" href="jquery.mobile-1.4.5.css" type="text/css" />
+     <script src="angular.js"></script>
+     <script type="text/javascript"> 
+        var myApp = angular.module('myApp', []);
+         
+        myApp.controller("myCtrl", function($scope){ $scope.count = 0; });
+
+        myApp.directive("addbuttons", function ($compile) 
+        {
+            return function (scope, element, attrs) 
+            {
+                element.bind("click", function ()
+                {
+                    scope.count++;
+                    var whereAppend = angular.element(document.querySelector('#space-for-buttons'));
+                    var newElement = angular.element("<div><button data-alert="+ scope.count +">Show alert #" + scope.count + "</button></div>");
+                    $compile(newElement)(scope);
+                    whereAppend.append(newElement);
+                });
+            };
+        });
+                // changing alert method for this app, bind buttons 
+        myApp.directive("alert", function () 
+        {
+            return function(scope, element, attrs)
+            {
+                element.bind("click", function ()
+                {
+                    alert("This is alert #" + attrs.alert);
+                });
+            };
+        });
+
+    </script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <button data-addbuttons>addButtons</button>
+        <div id="space-for-buttons"></div>
+    </div>
+    
+    <hr>Under myApp
+</body>
+</html>
+

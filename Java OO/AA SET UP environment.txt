@@ -1,0 +1,4 @@
+01) make a java file, with a class in it
+02) open powershell/cygwin/terminal to the folder of the file^
+03) type "javac fileName.java" // java compiler
+04) type "java className"

@@ -1,0 +1,25 @@
+( find $1 -type f ) >| tmp
+echo -n >| tmp1
+while read x
+do
+ ( echo $x | tr "/" "\n" | tail -1 ) >> tmp1
+done<tmp
+( find $2 -type f ) >| tmp
+echo -n >| tmp2
+while read z
+do
+ ( echo $z | tr "/" "\n" | tail -1 ) >> tmp2
+done<tmp
+echo -n >| tmp
+while read y
+do
+ if [ $( cat tmp1 | egrep -o $y | wc -l ) -gt 1 ]
+ then
+	inFolder2=$( cat tmp2 | egrep -w -o $y | wc -l )
+	if [ $inFolder2 -eq 0 ]
+	then
+		( echo $y ) >> tmp
+	fi
+ fi
+done<tmp1
+( cat tmp | sort | uniq )

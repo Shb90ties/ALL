@@ -1,0 +1,13 @@
+read file
+lineCounter=1
+while read line
+do
+	echo "$line" >| temp
+	if [ $[$lineCounter%2] -eq 0 ]
+	then
+		tr a-z A-Z <temp
+	else
+		tr 6-9 a-d <temp
+	fi
+	lineCounter=$[$lineCounter+1]
+done<$file

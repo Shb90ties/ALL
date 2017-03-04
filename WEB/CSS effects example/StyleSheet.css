@@ -1,0 +1,207 @@
+﻿.my-bar{
+    height: 30px;
+    width: 100%;
+
+    margin-top: -5px;
+    padding-top: 15px;
+
+    position: fixed;
+    top: 0px;
+    
+    margin-left: -100px;
+    padding-left: 105px;
+
+    margin-right: -10px;
+    padding-right: 10px;
+
+    background-color: black;
+    background-image: none;
+    color: white;
+    overflow: initial;
+
+    z-index: 1;
+}
+.my-bar > div{ /* the menu buttons */
+    display: inline-block;
+    overflow: initial;
+    width: 200px;
+    background-color: darkgray;
+    color: white;
+    text-align: center;
+    font-family: Arial;
+    word-wrap: break-word;
+    border-radius: 10px;
+    cursor: pointer;
+
+    opacity: 0.7;
+    transition: opacity box-shadow 5s;
+}
+.my-bar > div:hover{
+    opacity: 1;
+    box-shadow: 0px 0px 10px white;
+}
+.my-bar >div>div {
+    display: none;
+    position: absolute;
+    z-index: 2;
+    width: 200px;
+    background-color: black;
+    color: white;
+}
+.my-bar >div>div ul{
+    list-style-type: none;
+    margin: 2px;
+    padding: 2px;
+}
+.my-bar >div>div li{
+    margin-bottom: 5px;
+    background-color: grey;
+    color: white;
+    box-shadow: none;
+    cursor: pointer;
+
+    opacity: 0.7;
+    transition: opacity box-shadow 2s;
+}
+.my-bar >div>div li:hover{
+    opacity: 1;
+    box-shadow: 0px 0px 8px white;
+}
+.my-top{
+    margin-left: -100px;
+    padding-left: 100px;
+    margin-right: -10px;
+    padding-right: 10px;
+
+    background-image: url(images/wood.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
+    margin-top: -50px;
+    padding-top: 125px;
+
+    width: 100%;
+    height: 450px;
+
+    text-align: center;
+    font-weight: bold;
+    font-size: xx-large;
+
+    box-shadow: 0px 4px 20px black;
+}
+.my-pic-container{
+    width: 650px;
+    height: 150px;
+
+    margin-left: auto; /* text align is middle => auto = middle*/
+    margin-right: auto;
+}
+.my-pic-container img{
+    display: inline-block;
+    width: 150px;
+    height: 150px;
+    opacity: 0.3;
+    cursor: pointer;
+
+    -webkit-transition: opacity 1s ease-in-out;
+    -moz-transition: opacity 0.5s ease-in-out;
+    -ms-transition: opacity 0.5s ease-in-out;
+    -o-transition: opacity 0.5s ease-in-out;
+    transition: opacity 0.5s ease-in-out;
+}
+.my-pic-container img:hover{
+    opacity: 1;
+}
+.my-jumping-container{
+    height: 100px;
+    border: 1px solid black;
+}
+.my-jumping{
+    width: 20px;
+    height: 20px;
+
+    margin-top: 0px;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    background-color: black;
+
+    border-radius: 10px 10px 10px 10px;
+
+    animation: jumping 1s infinite;
+    animation-direction: alternate;
+    cursor: pointer;
+}
+@keyframes jumping{
+    from{ margin-top: 0px; }
+    to{ margin-top: 80px; }
+}
+.my-content{
+    margin-left: -100px;
+    padding-left: 100px;
+    margin-right: -10px;
+    padding-right: 10px;
+
+    background-color: navy;
+    color: white;
+
+    text-align: center;
+    font-size: x-large;
+    width: 100%;
+    height: 450px;
+
+    z-index: -2;
+    position: relative; /* z-index has to have position:.. */
+}
+.my-content div{
+    padding-top: 50px;
+
+    margin-left: auto;
+    margin-right: auto;
+    
+    height: 300px;
+    width: 200px;
+    display: inline-block;
+    background-color: white;
+    color: black;
+
+    border-radius: 0px 0px 100px 100px;
+}
+.my-content img{
+    height: 200px;
+    width: 200px;
+}
+.my-info{
+    margin-left: -100px;
+    padding-left: 100px;
+    margin-right: -10px;
+    padding-right: 10px;
+
+    width: 100%;
+
+    overflow: auto;
+
+    text-align:center;
+
+    background-color: lightgray;
+}
+.my-info div{
+    margin-left: auto;
+    margin-right: auto;
+
+    font-family: Arial;
+    font-weight: bold;
+    width: 500px;
+}
+.my-info img{
+    height: 180px;
+    width: 300px;
+}
+.my-info-float{
+    border-radius: 10px;
+    border: 2px solid black;
+    background-color: white;
+    display: none;
+    position: absolute;
+}

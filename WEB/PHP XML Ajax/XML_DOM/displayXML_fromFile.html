@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+	<body>
+		<hr>
+		Random :
+		<p id="demo">..</p>
+		<hr>
+		Loop: 
+		<p id="demoL">..</p>
+		<hr>
+		Single :
+		<p id="demoS">..</p>
+		Array of Node objects with Attributes :
+		<p id="demoA">..</p>
+		<hr>
+		Total elements in ROOT :
+		<p id="demoT">..</p>
+		<hr>
+		parent ROOT of nodes[0] :
+		<p id="demoP">..</p>
+		<hr>
+		First Child node nevegation :
+		<p id="demoNav">..</p>
+		<hr>
+		Remove node : 
+		<p id="demoRmv">..</p>
+		
+		
+		<script>
+			var xhttp;
+			xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					myFunction(this);
+					myFunction_Loop(this);
+					myFunction_Single(this);
+					//getEntireNODES(this);
+					GETnumberOFnodes(this);
+					GETparentNODE(this);
+					FirstChildNode(this);
+					FuncRemove(this);
+				}
+			};
+			xhttp.open("GET", "myXML.xml", true);
+			xhttp.send();
+			
+			function myFunction_Loop(xml) {
+				var x, i, txt, xmlDoc; 
+				xmlDoc = xml.responseXML;
+				txt = "";
+				x = xmlDoc.getElementsByTagName("text");
+				txt = "length of array of elements : "+x.length+"<br>";
+				for (i = 0; i < x.length; i++) { 
+					txt += x[i].childNodes[0].nodeValue + "<br>";
+				}
+				document.getElementById("demoL").innerHTML = txt;
+			}
+			
+			function myFunction_Single(xml) {
+				var xmlDoc = xml.responseXML;
+				var x = xmlDoc.getElementsByTagName("text")[0].childNodes[0];
+				document.getElementById("demoS").innerHTML = x.nodeValue;
+			}
+			
+			function myFunction(xml) {
+				var xmlDoc = xml.responseXML;
+				var x = xmlDoc.getElementsByTagName("text");
+				document.getElementById("demo").innerHTML =
+				x[2].childNodes[0].nodeValue;
+			}
+			
+			function getEntireNODES(xml){
+				var xmlDoc = xml.responseXML;
+					// get all the elements that are nodes, find the length
+				x = xmlDoc.getElementsByTagName("node")[0].attributes;
+				document.getElementById("demoA").innerHTML = "Node 1 category : "+x.getNamedItem("category").nodeValue + "<br>";
+			}
+			
+			function GETnumberOFnodes(xml){
+				var xmlDoc = xml.responseXML;
+				nods = xmlDoc.documentElement.childNodes;
+				//document.getElementById("demoT").innerHTML
+				var txt = nods.length+'<br><hr>Elements name : value <br><br>';
+				for(var i=0;i<nods.length;i++){
+					txt += nods[i].nodeName + "<br>";
+				}
+				document.getElementById("demoT").innerHTML = txt;
+			}
+			
+			function GETparentNODE(xml){
+				var xmlDoc = xml.responseXML;
+				var x = xmlDoc.getElementsByTagName("node")[0];
+				document.getElementById("demoP").innerHTML = x.parentNode.nodeName;
+			}
+			
+			function FirstChildNode(xml){
+				var xmlDoc = xml.responseXML;
+				var x = get_firstChild(xmlDoc.getElementsByTagName("node")[0]);
+				document.getElementById("demoNav").innerHTML = x.nodeName;
+			}
+			
+			function get_firstChild(n) {
+				var y = n.firstChild;
+				while (y.nodeType != 1) {
+					y = y.nextSibling;
+				}
+				return y;
+			}
+			
+			function FuncRemove(xml) {	// demoRmv
+				var xmlDoc = xml.responseXML;
+				var root = xmlDoc.documentElement;
+				var currNode = root.childNodes[1];
+				var removedNode = currNode.removeChild(currNode.childNodes[1]);
+				document.getElementById("demoRmv").innerHTML =
+				"sdfsdf";
+			}
+		</script>
+	</body>
+</html>

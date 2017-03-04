@@ -1,0 +1,11 @@
+x=0
+while read file
+do
+ if [ -f "$file" ]
+  then
+   x=$[$x+$(wc -l<$file)]
+  else
+   x=$x
+ fi
+done
+echo $x

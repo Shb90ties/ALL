@@ -1,0 +1,12 @@
+#!/bin/awk -f
+BEGIN{}
+{	fofo="null";
+	fimfo="gogo"fofo;
+	print fimfo
+	Sush=""
+	mush=Shush" "fofo
+	print mush""Sush""fofo;
+	if( ( 5 > 5 ) || ( 3 <= 3 ) )
+	{ print "hyhyhy"; }
+}
+END{}

@@ -1,0 +1,25 @@
+<html>
+<head>
+    <link rel="stylesheet" href="jquery.mobile-1.4.5.css" type="text/css" />
+    <script src="angular.js"></script>
+    <script type="text/javascript">
+        var app = angular.module('myApp', []);
+        
+        app.controller('myCtrl', function ($scope) 
+        {       // on page installation visable = false
+            $scope.myVisible = false;
+            $scope.myClick = function () 
+            {       // on click visable = !(visable)
+                $scope.myVisible = !$scope.myVisible;
+            };
+        });
+    </script>
+</head>
+<body ng-app>
+    release show event(ng-show) : <input type="checkbox" ng-model="CheckBoxEvent">
+    <h1 ng-show="CheckBoxEvent">Check boxed check</h1>
+    
+    <br><button ng-click="myClick()">OK</button>
+    <p ng-show="myVisible">ng-show Event through button</p>
+</body>
+</html>

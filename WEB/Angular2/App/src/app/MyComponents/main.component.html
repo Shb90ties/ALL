@@ -1,0 +1,14 @@
+<p>{{myTitle}} | ID = {{myID}}</p>
+<hr/>
+<b>What post to show? (0~99)</b><br/>
+<form (submit)="changePostID(myPost.value)">
+    <input type="text" name="binder" #myPost [(ngModel)]="myPostText" 
+           pattern="[0-9]{1,2}" title="numbers between 0 to 99"/><br/>
+    <input type="submit" value="Click or press Enter (width checking)" /><br/>
+    <button (click)="changePostID(myPost.value)">Send without checking</button><br/>
+    <label>The Number : {{myPostText}}</label>
+</form>
+<div *ngIf="(this.myI < 100 && this.myI >= 0)">
+    <h3>{{MyPosts[myI].id}} | {{MyPosts[myI].title}}</h3>
+    <p>{{MyPosts[myI].body}}</p>
+</div>

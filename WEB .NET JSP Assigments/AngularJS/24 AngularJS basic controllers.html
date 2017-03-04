@@ -1,0 +1,64 @@
+<html>
+<head>
+    <link rel="stylesheet" href="jquery.mobile-1.4.5.css" type="text/css" />
+    <script src="angular.js"></script>
+    <script type="text/javascript">
+        var app = angular.module('myApp', []);
+                            // [] for the $scope usage
+        app.controller('myCtrl', function($scope) 
+        {           // $scope contains all the elemnts installed in the html
+            $scope.myCtrl = function($scope)
+            {       // initialize the myModel
+                $scope.myModel = 'World';
+            };      
+            $scope.getModel = function()
+            {       // function that returns myModel
+                return $scope.myModel;
+            };
+        });
+        
+        app.controller('secondCtrl', function($scope) 
+        {           // $scope contains all the elemnts installed in the html
+            $scope.myCtrl = function($scope)
+            {       // initialize the myModel
+                $scope.myModel = 'World';
+            };      
+            $scope.getModel = function()
+            {       // function that returns myModel
+                return $scope.myModel;
+            };
+        });
+                // WTIHOUT $SCOPE, cannot have both,
+        
+        //app.controller('myController',function()
+        //{
+        //     this.init = function(){ this.mod = 'insert'; }
+        //     this.getModel = function(){ return this.GETmod; }
+        //});
+    </script>
+</head>
+<body ng-app="myApp">
+    <div ng-controller="myCtrl">
+        
+        <input type="text" ng-model="myModel"><br>   
+        <h1>=> {{myModel}}</h1>
+        <p>through function => {{getModel()}}</p>
+        
+    </div>
+    
+    <div ng-controller="secondCtrl">
+        
+        <input type="text" ng-model="myModel"><br>   
+        <h1>=> {{myModel}}</h1>
+        <p>through function => {{getModel()}}</p>   
+        
+    </div>
+    
+    <div ng-controller="myController as myC" ng-init="myC.init()">
+        
+        <input type="text" ng-model="myC.mod"><br>
+        <h1>scopless => {{myC.GETmod()}}!</h1>
+        
+    </div>
+</body>
+</html>

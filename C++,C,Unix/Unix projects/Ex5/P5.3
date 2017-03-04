@@ -1,0 +1,17 @@
+read file
+echo -n >| temp
+sum=0
+lineCounter=1
+while read line
+do
+	echo $line >| temp2
+	for num in $(cat temp2)
+	do
+		sum=$[$sum+$num]
+	done
+ sum=$[$sum*$lineCounter]
+ (echo $sum) >> temp
+ sum=0
+ lineCounter=$[$lineCounter+1]
+done<$file
+cat temp

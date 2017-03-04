@@ -1,0 +1,177 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<link rel="stylesheet" href="jquery.mobile-1.4.5.css" type="text/css" />
+	<script src="jquery-1.12.0.js"></script>
+    <script src="jquery-1.11.0.min.js"></script>
+	<script src="jquery.mobile-1.4.5.js"></script>
+    <script src="myComponent.js"></script>
+    <style type=text/css>
+        .myBoard
+        {
+            position: absolute;
+            top: 255.5px;
+            left: 5px;
+        }
+        .myBoardD
+        {
+            position: absolute;
+            top: 255.5px;
+            left: 10px;
+        }
+    </style>
+    <script type="text/javascript">        
+        var heigh = screen.height/2; var Alpha,Beta,Gamma;
+        var witdh = screen.width; var A_score = 0; var B_score = 0; var Timer; var TimeCounter = 0;
+        var A_color,B_color; function getRandom(){ return Math.floor((Math.random() * 200)); }
+        $(document).bind ("pagecreate", function ()
+        {
+            A_color = 'rgb(' + getRandom() + ', ' + getRandom() + ', '+ getRandom() + ')';
+            B_color = 'rgb(' + getRandom() + ', ' + getRandom() + ', '+ getRandom() + ')'
+            var A = $("<div id=\"A\" style=\"height:"+(heigh-20)
+                      +"px; width:"+(witdh-20)+"px;\"></div>");
+            A.appendTo('#myContent');
+            A.myComponent();
+            $('#A').myComponent("ChangeBG",A_color,"A");
+            var B = $("<div id=\"B\" style=\"height:"+(heigh-20)
+                      +"px; width:"+(witdh-20)+"px;\"></div>");
+            B.appendTo('#myContent');
+            B.myComponent();
+            $('#B').myComponent("ChangeBG",B_color,"B");
+                // if horizontal do this, if not change left
+            setPosition('A',5,5);   setPosition('B',heigh,5);
+            $('#A').myComponent("SetupBoard");  $('#B').myComponent("SetupBoard");
+            document.getElementById('lbl_A').style.backgroundColor = A_color;
+            document.getElementById('lbl_B').style.backgroundColor = B_color;
+            setPosition('lbl_A',heigh-30,witdh/2-40);   setPosition('lbl_B',heigh-30,witdh/2);
+            setPosition('lbl_Timer',heigh-30,5);
+            pass_second();
+                    // phone flipping
+            if( window.orientation != 0){ Vertical(); }
+            $(window).on('orientationchange',function()
+            {
+                if( window.orientation == 0 )
+                {
+                    Horizontal();       
+                }
+                else
+                {
+                    Vertical();
+                }
+            });
+                // event
+            var eventA = $('<input type="hidden" id="eventA">');
+            eventA.appendTo('#myContent');
+            $('#eventA').on("finishGame",function(event,JsonObj)
+            { 
+                won_game(JsonObj.winner);
+            });
+        });
+        
+        function won_game(the_winner)
+        {
+            if( the_winner == 'A')
+            {
+                A_score++;
+                $('#lbl_A').text(A_score);
+            }
+            else
+            {
+                B_score++
+                $('#lbl_B').text(B_score);
+            }
+        }
+        
+        function pass_second()
+        {
+            var temp = "Time : "+TimeCounter;
+            if( TimeCounter < 10 ){ temp = "Time : 0"+TimeCounter; }
+            document.getElementById('lbl_Timer').innerHTML = temp;
+            TimeCounter++;
+            if( TimeCounter >= 45 )
+            {
+                var currentWinner = "Player A";
+                if( B_score > A_score ){ currentWinner = "Player B"; }
+                if( B_score == A_score ){ currentWinner = "no one...."; }
+                if( confirm('Game is over the Winner is : '+currentWinner))
+                {
+                    window.location.reload();
+                }
+                else
+                {
+                    for(var i=0; i<16;i++)
+                    {
+                        document.getElementById('A'+i).disabled = true;
+                        document.getElementById('B'+i).disabled = true;
+                    }
+                }
+            }
+            else
+            {
+                Timer = setTimeout("pass_second()",1000);    
+            }
+        }
+        
+        function click_()
+        {
+            var player = this.id[0]; 
+            var just_num = "";
+            for(var i=1; i<this.id.length; i++){ just_num += this.id[i]; }
+            $('#'+player).myComponent("ClickB",just_num);
+        }
+        
+        function setPosition(id_,top_,left_)
+        {
+            var elemnt = document.getElementById(id_);
+            elemnt.style.position = 'absolute';
+            elemnt.style.top = top_+'px';
+            elemnt.style.left = left_+'px';
+        }
+        
+        function GetPart(string_)
+        {
+            var array = string_.split("|");
+            return array;
+        }
+        
+        function Vertical()
+        {
+            var h = screen.height;  var w = screen.width;
+            document.getElementById('A').style.height = (h-20)+'px';
+            document.getElementById('A').style.width = ((w/2)-20)+'px';
+            $('#A').myComponent("RefreshSize");
+            document.getElementById('B').style.height = (h-20)+'px';
+            document.getElementById('B').style.width = ((w/2)-20)+'px';
+            $('#B').myComponent("RefreshSize");
+            setPosition('B',5,(w/2));
+            setPosition('lbl_A',h/2-60,w/2-17);   setPosition('lbl_B',h/2-17,w/2-17);
+            setPosition('lbl_Timer',h-35,w/2-50);
+        }
+        function Horizontal()
+        {
+            var h = screen.height;  var w = screen.width;
+            document.getElementById('A').style.height = ((h/2)-20)+'px';
+            document.getElementById('A').style.width = (w-20)+'px';
+            $('#A').myComponent("RefreshSize");
+            document.getElementById('B').style.height = ((h/2)-20)+'px';
+            document.getElementById('B').style.width = (w-20)+'px';
+            $('#B').myComponent("RefreshSize");
+            setPosition('B',(h/2),5);
+            setPosition('lbl_A',h/2-30,witdh/2-40);   setPosition('lbl_B',h/2-30,witdh/2);
+            setPosition('lbl_Timer',h/2-30,5);
+        }
+    </script>
+</head>
+<body>
+    <div data-role=page id=home>
+        <div data-role=content id="myContent">
+        </div>
+    </div>
+    <label id="lbl_A" style="position:absolute; font-Size:XX-large; color:white;">0</label>
+    <label id="lbl_B" style="position:absolute; font-Size:XX-large; color:white;">0</label>
+    <label id="lbl_Timer" style="position:absolute; font-Size:X-large; color:white; background-Color:black;">Time : 00</label>
+</body>
+</html>
+
+
+

@@ -1,0 +1,20 @@
+read file
+biggestWord=0
+for word in $(cat $file)
+do
+	echo $word >| temp
+	if [ $(wc -L <temp) -gt $biggestWord ]
+	then
+		biggestWord=$(wc -L <temp)
+	fi
+done
+biggestWordCounter=0
+for wordCheck in $(cat $file)
+do
+	echo $wordCheck >| temp
+	if [ $(wc -L <temp) -eq $biggestWord ]
+	then
+		biggestWordCounter=$[$biggestWordCounter+1]
+	fi
+done
+echo $biggestWord $biggestWordCounter

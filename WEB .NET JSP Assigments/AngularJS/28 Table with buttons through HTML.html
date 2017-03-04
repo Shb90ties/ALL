@@ -1,0 +1,62 @@
+<html>
+<head>
+    <link rel="stylesheet" href="jquery.mobile-1.4.5.css" type="text/css" />
+    <script src="angular.js"></script>
+    <style type=text/css>
+    table 
+    {
+        border: 5px solid red;
+        width: 200px;
+        padding: 5px;
+    }
+    td 
+    {
+        border: 1px solid blue;
+    }
+    </style>
+    
+    <script type="text/javascript">
+        var app = angular.module('myApp', []);
+        
+        app.controller('myCtrl', function($scope) 
+        {
+            $scope.myClick = function($event) 
+            {
+                alert(event.target.id);
+            }
+        });
+    </script>
+</head>
+<body ng-app="myApp">
+   <div>
+    <table>
+            <!-- [0,1,2] are values in the rows or Column array, here 3 -->
+        <tr ng-repeat="row in [0,1,2]">
+            <td ng-repeat="column in [0,1,2]"> {{row}} , {{column}} </td>
+        </tr>
+        
+    </table>
+       <hr>
+    <table>
+        
+        <tr ng-repeat="row in ['dani','ben','tony']">
+            <td ng-repeat="column in ['x','y','z']"> {{row}}//{{column}} </td>
+        </tr>
+        
+    </table>
+       <hr>
+            <!-- Table with Buttons -->
+    <table ng-controller="myCtrl">
+        
+        <tr ng-repeat="row in [0,1,2]">
+            
+            <td ng-repeat="column in [0,1,2]">
+                <button id="{{10 * row + column}}" ng-click="myClick(event)">{{row}}{{column}}</button> 
+            </td>
+        </tr>
+        
+    </table>
+   </div>
+</body>
+</html>
+

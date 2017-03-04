@@ -1,0 +1,4 @@
+for x in $(cat T1)
+do
+	echo $x
+done

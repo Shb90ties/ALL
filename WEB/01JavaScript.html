@@ -1,0 +1,561 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <style>
+        .B{ border:1px solid black; }
+        button{ width: 45%; }
+        .showDiv{ width: 45%; border: 1px groove black;
+                 position: fixed; right: 1px; }
+    </style>
+    <script type="text/javascript">
+        //window.alert("Basics");
+        //(function () { alert("Basics") }());
+        //var c = (function () { alert("Basics"); }); c();
+        // ver obj = { fun : function(){..} , .. };  obj.fun();
+        //var d = () => { alert("Basics"); }; d();
+        // x/=y ~ x=(x/y) || x%=y ~ x=(x%y)
+        // === equal value and type
+        // !== not equal value and not type
+        // >>, <<, >>>,~(NOT),^(XOR), 5|6(OR), ~5(NOT), 5^6(AND)
+		//_______________Strings_______________________________
+        // String.length;  \' \" \\ \b \r \f \t \v
+        // String.indexOf("Th"); String.search("Th");
+        // slice(start,end); | substring(start,end); | substr(start,end); (start); ~ (start -> end of string)
+        // str.search(/w3schools/i); => search ignores capsLock || str.replace("a","aa");
+        // String.replace("AA","aa"); .toUpperCase(); .toLowerCase(); .concar(" ",stringObj);
+        // string.charAt(5); returns 'C' || string[0] || String.split(","); return array
+        // str.charAt(0); , str.charCodeAt(0); in Ascii, str.includes("world"); boolean , str.slice(0); slice(start,end)
+        // str.split(" "); returns array of words
+        // typeOf NaN || parseInt() || parseFloat()
+        // Math.PI; Math.round(4.77); returns 5 || Math.pow(8,2); 8^2
+        // Math.sqrt(64); || Math.abs(-4.7); +4.7 || Math.sin(90*Math.PI);
+        // Math.ceil(4.4); return 5 || Math.floor(4.7); return 4 || Math.cos(..)
+        // Math.min(0,5,1,3); return 0; , Math.max(5,7); return 7;
+        // Math.random(); || .atan2(x) || .atan(x) || .acos(x) || .abs(x) || .tan(x)
+        //_________________Date_________________
+        // Date.parse("March 21, 2012"); new Date("2005-03-22 00:00:00");
+        // var d = new Date(2011,10,30); 
+        // var date_ = new Date(y,m,d,11,30,4); 11:30:04
+        // || arr instanceof Array
+        // getDate() {1-31}, getDay() {0-6} , getFullYear() {year} , getHours() {0-23} , getMonth() {0-11}
+        // new Date(year, month, day, hours, minutes, seconds, milliseconds)
+        // ArrayAll.concat(arrayA,arrayB); <= add the 2 arrays , array.slice(1); remove fist elm || .slice(1,3); remove 1 to 3 first elements
+        // switch(x){ case n:....break; default:.... }
+        // install things on FOR announcment for (i = 0, text = ""; i < len; i++)
+        // short cut (; i < len; ) , i=0 || i++|| for (x in person){ person[x] }
+        // [abc] , [0-9] , (x|y) , \d (digit), /e/.exec(string); returns e's if exist
+        // /e/.test(string); returns true if e is there
+        // try { throw "5" } catch(err){ innerHTML = err; } ...
+        // EvalError , RangeError , ReferenceError , SyntaxError , TypeError , URIError
+        // err.name ^  || typeOf undefined || typeOf null
+        // function(){ return; } => returns undefined
+        // null IS FOR objects, undefined IS FOR virables
+        // var elm = document.createElement("script").src="..."; document.body.appendChild(elm);
+        // hasOwnProperty isPrototypeOf name isFinite isNaN prototype <= for Objects
+        // DOM : ____________________________________________________________
+        // document.removeChild(element) || document.replaceChild(element)
+        // document.anchors , returns all <a> .applets returns <applet>
+        // .baseURI , .body <body> , .cookie , .documentElement return <html>
+        // .forms <form> , var x = document.forms["frm1"]; .head
+        // .images <img> document.images.length; , .scripts return <scrips>
+        // .URL returns url || buttonOBJ.className;
+        // var x = document.querySelectorAll("p.intro"); returns all innerHTML in <P>
+        // .addEventListener("click", functionAA); , .tagName();
+        // window.addEventListener("resize", function(){....});
+        // NODES : ___________________________________________________________
+        // parentNode , childNodes[2] , firstChild , lastChild , nextSibling ,previousSibling
+        // .nodeName , .getElementById("id01").nodeName
+        // element.appendChild(para); .removeChild(child); .parentNode.removeChild(child);
+        // .className , .parentNode.tagName // < virables not functions
+        // ____________________________________________________________
+        // setInterval(function, miliseconds); setTimeout(function,miliseconds);
+        // clearInterval(theIntervalObj); clearTimeout(timeOutOBJ)
+        // AJAX
+		// variable = new XMLHttpRequest(); OR new ActiveXObject("Microsoft.XMLHTTP");
+		// readyState {0 not, 1 connected, 2 sent, 3 processing, 4 finished & back }
+		// xhttp.open("GET", "ajax_info.txt", true);
+		// xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		// GET more simple, POST saves more info can be controlled better
+		// XMLrequest.responseText , responseXML, statusText
+		// XMLrequest.onreadystatechange = function;
+		// xhttp.send();
+		// document.querySelector(".example").style.backgroundColor = "red"; // all queries that has "example" in it
+
+        var showBox = function () {
+            return document.getElementsByClassName("showDiv")[0];
+        }       // callBack because HTML hasn't loaded the div below yet
+
+        function date() {
+            showBox().innerHTML = Date();
+        }   // in Date.getDay,getHours,getMinutes
+
+        function debug() {
+            console.log("Calling debugger");
+            debugger;
+        }
+
+        function typeOF() {
+            var s = typeof document.createElement("div");
+            var f = typeof function () { };
+            showBox().innerHTML = f + " , " + s + " , " + typeof "STRING!";
+        }
+
+        function nativeCode() {
+            showBox().innerHTML = "StringY".constructor;
+        }
+
+        function Converterr() {
+            showBox().innerHTML = "Number(false);=" + Number(false) +
+                                "<br>Boolean(1);=" + Boolean(5) + " anything except 0 is true";
+        }
+        
+        function infinityy() {
+            var inf = Infinity;
+            showBox().innerHTML = "(infinity > 112233)=?" + (inf > 112233);
+        }
+
+        //function ExponentiationN() {
+        //    showBox().innerHTML = (10**2);
+       // }
+
+        function pureJSON(){
+            var json = {a:"bb",b:50};
+            showBox().innerHTML = json.a + " json.b+5=" + (json.b + 5) +
+                            "<br> json[\"b\"] = 555; + 5 = " + (json["b"]+5); 
+        }
+
+        function differnceInDays() {
+            var date1 = new Date("7/13/2011");
+            var date2 = new Date("12/15/2010");
+            var timeDiff = Math.abs(date2.getTime() - date1.getTime());
+            var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+            showBox().innerHTML = "days between 7/13/2011 and 12/15/2010 = " + diffDays;
+        }
+
+
+        function changeTEXT(sender,text){ sender.innerHTML = text; }
+
+        function NotANumber(){
+            var x = "dsfsd";
+            if( parseInt(x) == NaN ){ alert("GGG"); }
+            alert('x = "dsfsd" ' + isNaN(x));
+        }
+
+        function addTwoZeros(){
+            var x = 2.332; alert(x.toExponential(2));
+        }
+
+        function LargestNumInJS(){ alert(Number.MAX_VALUE); }
+
+        function DateInUTC(sender){
+            var date = new Date();
+            showBox().innerHTML = date.getUTCDate() + " , " + new Date(date.getUTCDate()) +
+                            " , " + new Date("2005-03-22") + " , " + new Date().getFullYear();
+            myDaysEnum();
+        }
+
+        function myDaysEnum(){
+            var days = ["Sun","Mon","Tu","Wed","Thu","Fri","Sat"];
+            alert(days[new Date().getDay()]);
+        }
+
+        function sortARRAY(){
+            var arr = ["KK","Ba","cc"]; 
+            arr.sort();
+            alert(arr);
+            arr.push("aBB");
+            alert("After push aBB, "+arr+" sort: "+arr.sort() + "isArray(..)?="
+                     + isAnArray(arr)) + " or " + arr instanceof Array;
+            alert("pop the last element : arr.pop() = "+arr.pop());
+            arr.shift();
+            alert("shift ~ remove the first elm : "+arr);
+            arr.unshift("back!"); alert("restore it ~ unshift : "+arr);
+            arr.reverse(); alert("sort in reverse : "+arr);
+        }
+
+        function isAnArray(x){
+            return (x.constructor.toString().indexOf("Array") > -1);
+        }
+
+        function ifMethodShortCut(){
+           // var newIF = (55 > 22) ? "55 is bigger than 22";
+           // alert(newIF);
+        }
+
+        function FORshortCut(){
+            var text = "d"; var arr = ["Ac","Bv"];
+            list: { text += arr[0]; break list; text += arr[1]; }
+            alert(text);
+        }
+
+        function appendDIV(){
+            var div = document.createElement("div");
+            div.innerHTML = "<p>Append after load page, helps DOM load faster</p>";
+            document.body.appendChild(div);
+        }
+
+        function infoOnButton(sender){
+          //  alert(sender.has)
+        }
+
+        function funcASaObject(first){
+            function Person(first) {
+                this.firstName = first;
+            }
+            Person.prototype.nationality = "English";
+            var CC = new Person("BB");
+            alert(CC.nationality);
+        }
+
+        function ArgsLength(a,b){ 
+        //    alert(arguments.length);
+        }
+
+        function getElements(){
+            var elemes = document.getElementsByTagName("button");
+                            // getElementsByClassName("B");
+            alert("There are " + elemes.length + " buttons ALL WILL BE GREEN");
+            for(var i=0; i<elemes.length;i++){
+                if(elemes[i].className == "B"){
+                    if( elemes[i].parentNode.tagName == "DIV" )
+                        elemes[i].style.backgroundColor = "green";
+                }
+            }
+        }
+
+        function enableCookies(sender){
+            navigator.cookieEnabled = (!navigator.cookieEnabled);
+            sender.innerHTML = "Cookies status : " + navigator.cookieEnabled;
+        }
+
+        function upperCase(){
+            document.getElementById("ttt").value = document.getElementById("ttt").value.toUpperCase();
+        }
+
+        function ScreenHW(){
+            alert("width : "+screen.width+" available width "+screen.availWidth+
+                    "height : "+screen.height+"available height"+screen.availHeight+
+                        "screen.colorDepth"+screen.colorDepth);
+        }
+
+        function windowsLocation(sender){
+            sender.innerHTML = "hostname : " + window.location.hostname +"<br>" +
+                            "pathname : " + window.location.pathname + "<br>" +
+                            "protocol : " + window.location.protocol + "<br>" +
+                            "history.back " + window.history.back() + "<br>" +
+                            "history.forward " + window.history.forward();
+        }
+
+        function makeCookie(expirationDays){
+            var date = new Date();
+            date.setTime(date.getTime() + (expirationDays*24*60*60*1000));
+            document.cookie = "username=SSSS; "+
+                            " expires="+ date.toUTCString()+";"+
+                            "path=/";
+        }
+
+        function loadCookie(sender){
+            var user = getCookie("username");
+            if(user != ""){
+                sender.innerHTML = "Welcome again "+user;
+            }
+        }
+
+        function StringThings(sender){
+            var str = "FOOOOO";
+            var r = "555";
+            for(var i=0; i <str.length; i++){
+                sender.innerHTML += str[i] + " , "+(44+parseInt(r));
+            }
+        }
+
+        function DateMy(sender) { //month, day, hours , values start from 0, put -1
+            var d = new Date(2004,03,18,15,00,00,00);
+            sender.innerHTML = d.toDateString();
+        }
+
+        function define_library() {
+            var Library = {};
+            var name = "Timmy";
+            Library.greet = function () {
+                alert("Hello from the " + name + " library.");
+            }
+            return Library;
+        }
+
+        if (typeof (Library) === 'undefined') {
+            window.Library = define_library();
+        }
+
+       // window.Library.greet();
+
+        function compareStringsCase(string1, string2, sender) {
+            var s = "not sensitive " + (string1.toUpperCase() == string2.toUpperCase()).toString();
+            var m = " sensitive " + (string1 == string2).toString();
+            sender.innerHTML += s + " " + m;
+        }
+
+        function stacks(sender) {
+            var stack = new Array();
+            stack.push("A");
+            sender.innerHTML += "is it empty? " + stack.length;
+            sender.innerHTML += " after : pop: " + stack.pop() + " length: " + stack.length;
+        }
+
+        function test(sender) {
+            sender.innerHTML = Math.max(5, 10);
+        }
+
+        function returnFunction(i) {
+            switch (i) {
+                case 1:
+                    return function () { alert('ONE!'); }; break;
+                case 2:
+                    return function () { alert('TWO'); }; break;
+                default:
+                    return function () { alert('what?'); }; break;
+            }
+        }
+
+        function getFunctions() {
+            //var method = returnFunction(2);
+            //method();
+            returnFunction(2)();
+        }
+
+
+        // method 1
+        window.localStorage.setItem('someStoredItem', 'data from window.localStorage.setItem');
+        function storageF() {
+            if (typeof (Storage) != "undefined") {
+                alert(window.localStorage.getItem('someStoredItem'));
+                window.localStorage.removeItem('someStoredItem');
+            } else {
+                alert("browser doesn't support LocalStorage");
+            }
+        }
+
+        // Types
+        function showMeTypes(sender) {
+            sender.innerHTML = 'typeof("string") = ' + typeof ("string") + "<br>" +
+                'typeof(10) = ' + typeof (10) + "<br>" +
+                'typeof(10.003) = ' + typeof (10.003) + "<br>" +
+                'typeof([1,5,88]) = ' + typeof ([1, 5, 88]) + "<br>" +
+                'typeof(NaN) = ' + typeof (NaN) + "<br>" +
+                'typeof({name:"bon",age:55}) = ' + typeof ({ name: "bon", age: 55 }) + "<br>" +
+                'typeof(null) = ' + typeof (null) + "<br>" +
+                'typeof(function(){}) = ' + typeof (function () { }) + "<br>" +
+                'typeof(lalalala) = ' + typeof (lalalala) + "<br>" +
+                'typeof(undefined) = ' + typeof (undefined) + "<br>" +
+                'typeof(new Date()) = ' + typeof (new Date());
+        }
+
+        function getKEYS(sender) {
+            var objj = { key1: "value1", key2: "value2" };
+            var keys = Object.keys(objj);
+            sender.innerHTML = '{ key1: "value1", key2: "value2" } keys: <br>';
+            for (var i = 0; i < keys.length; i++) {
+                sender.innerHTML += keys[i] + ' , ';
+            }
+        }
+
+        function SameClass() {
+            var d = new Date();
+            var e = new Date();
+            showBox().innerHTML = 'new Date().constructor === new Date().constructor?' +
+                '<br>' + (d.constructor === e.constructor) + '<br>' +
+                'new Array().constructor === new Date().constructor?' +
+                '<br>' + (new String().constructor === e.constructor);
+        }
+
+        function BooleanStringToNumber() {
+            showBox().innerHTML = 'Number("3.14")+Number("dd")=' +
+                    (Number("3.14") + Number("dd")) + '<br>' +
+                    'Number("3")+Number("555")=' + '<br>' +
+                    (Number(3) + Number(555)) + '<br>' +
+                    '3+true=' + (3 + true) + '<br>' +
+                    '3+Number(true)=' + (3 + Number(true));
+        }
+
+        function tryCatch() {
+            try{
+                showBox().innerHTML = "throw('something!!');";
+                throw "something";
+            } catch (err) {
+                showBox().innerHTML += "catch(err){ err = " + err;
+            }
+        }
+
+        //_________RegExp | Regular Expression__________//
+        // used for search patterns, text search, text replacement
+            // search() returns -1 if not found , replace()
+        // /pattern/modifiers => 
+        // var patt = /aa/i; aa = pattern, i = case insensitive
+            // g = returns ARRAY with all the matches
+            // m = multiple matching
+        // [abc] = a,b,c , [a-c] = a,b,c ,[0-9] ,(x|y) = x or y, {x} #x characters
+        // \d = find digit , \s = white space , \b|\e = not the beginning or end
+        // \uxxxx = unicode hexadecimal number of xxxx digits
+        // n+ (atleast one) , n* (0 to infinity), n? (0 or 1)
+        // text(..) true false , match(..),exec(..) string or null
+        // /../ ~ new RegExp(...)
+        // . any char , \. actual dot , .? any char 1 or 0 times
+        // .* any char any times, .+ any char once or more
+
+        function RegExpExample() {
+            var obj = "lalala3lado";
+            showBox().innerHTML = 'var obj = "lalala3lado"; <br> ' +
+                'var n = obj.search(/a3/i); = ' + obj.search(/a3/i) + '<br>' +
+                'obj[n] = ' + obj[obj.search(/a3/i)] + '<br>' +
+                'case sensitive: obj.search("a3") = ' + obj.search("a3") + '<br>' +
+                'obj.search("A3") = ' + obj.search("A3") + '<br>' +
+                'REPLACE___________: <br>' +
+                'obj = ' + obj + ' obj.replace(/la3/i, "roror") <br> ' +
+                'obj = ' + obj.replace(/la3/i, "roror") + '<br>' +
+                'obj.replace(/UUU/i, "r") = ' + obj.replace(/UUU/i, "r") + '<br>' +
+                'TEST__________:(true false)<br>' +
+                '/a/.test("bbbab") = ' + /a/.test("bbbab") + '<br>' +
+                'exec(...)__________:<br>' +
+                '/er/.exec("Dser") = ' + /er/.exec("Dser") + '<br>' +
+                '/AA/.exec("Dser") = ' + /AA/.exec("Dser") + '<br>' +
+                '/[a-z]/.exec("gag") = ' + /[a-z]/.exec("gag");
+        }
+
+        function RegExpExpressions() {
+            showBox().innerHTML = 'get numbers "0ga1s7".match(/\\d+/g) = [' +
+                "0g55a1s7".match(/\d+/g).toString() + ']<br>' +
+                'get space " d f ".match(/\s/g) = ' +
+                " d f ".match(/\s/g).toString() + '<br>middle of word : "deed".match(/\\b/g) = ' + "deed".match(/\e/g).toString() +
+                '<br> "food".match(/[a-z]{3}/) = ' +
+                "food".match(/[a-z]{3}/).toString() + '<br>' +
+                '"food".match(/[a-z]?/) = ' + "food".match(/[a-z]?/).toString() +
+                '<br>"food".match(/[a-z]*/) = ' + "food".match(/[a-z]*/).toString();
+        }
+
+        function getRequest(requestName) {
+            var encodedRequest = encodeURIComponent(requestName);
+            var encodedExp = '[?&]' + encodedRequest +'=([^&]*)';
+            showBox().innerHTML = 'encoded : ' + encodedRequest + '<br>' +
+                        'encoded expression : <br>' + encodedExp +
+                        '<br> found : <br>';
+            var AddressArray = new RegExp(encodedExp).exec(location.search);
+            if (AddressArray != null) {
+                showBox().innerHTML += AddressArray[i] + ',';
+            }
+        }
+
+        function myCompare(dateA, dateB) {
+            var a = daysDiff(dateA.date);
+            var b = daysDiff(dateB.date);
+            return a - b;
+        }
+
+        function sort(sortByFunction, array) {
+            for (var i = 0; i < array.length; i++) {
+                for (var j = (i + 1) ; j < array.length; j++) {
+                    if (sortByFunction(array[i], array[j]) > 0) {
+                        var temp = array[i];
+                        array[i] = array[j];
+                        array[j] = temp;
+                    }
+                }
+            }
+        }
+
+        // POINTERS
+        // pointers don't exists, must make a global data object
+
+        var myData = {};
+
+        function ArrayPointers()
+        {
+            var mySring = 'Gellloooo!';
+            showBox().innerHTML = 'Before change : ' + mySring + '<br>' +
+                'Strings cannot be changed, redefine String.replaceAt(..)<br>';
+
+            myData['pointer'] = mySring;
+            changeWithPointer('pointer');
+            mySring = myData['pointer'];
+            showBox().innerHTML += 'After change : ' + mySring;
+        }
+
+        function changeWithPointer(pointer) {
+            myData[pointer] = myData[pointer].repaceAt(2, 'T');
+        }
+
+        String.prototype.repaceAt = function (i, char) {
+            return this.substr(0, i) + char + this.substr(i + char);
+        }
+
+    </script>
+</head>
+<body>
+    <div id="shw" class="showDiv"> info box </div>
+    <button onclick="date(this)">Date();</button><br />
+    <script> document.write("document.write..."); </script><br />
+    <button onclick="debug()">Debug</button><br />
+    <button onclick="typeOF()">type of this</button><br />
+    <button onclick="nativeCode(this)">Native code of String</button><br />
+    <button onclick="Converterr(this)">Conver bool to number</button><br />
+    <button onclick="ExponentiationN(this)">10 ** 2=? similar to 10^2</button><br />
+    <button onclick="pureJSON(this)">json = {a:"bb",b:50}</button><br />
+    <button id="effectt" onmouseover="changeTEXT(this,'Changed')" 
+            onmouseout="changeTEXT(this,'Effect Button')">Effect Button</button><br />
+    <button onclick="NotANumber()">Not a Number</button><br />
+    <button onclick="addTwoZeros()">Add 2 zeros to 2.332</button><br />
+    <button onclick="LargestNumInJS()">Largest Number in JS</button><br />
+    <button onclick="changeTEXT(this,Math.floor(Math.random()*10))">Random num 0~10 (not 10)</button><br />
+    <button onclick="DateInUTC(this)">Date in UTC</button><br />
+    <button onclick="sortARRAY()">SORT array.sort and Push(elm)</button><br />
+    <button onclick="ifMethodShortCut()">IF short cut</button><br />
+    <button onclick="FORshortCut()">list : { ... break .... }</button><br />
+    <!-- Using strict JS : <script> "use strict"; x=3.14; delete x; </script><br /> -->
+    <button onclick="appendDIV()" class="B">appeand div to DOM <br> (Document Object Model) {html-head-title-body...}</button><br />
+    <div>
+        <button onclick="funcASaObject('FFF')" class="B">function as an Object</button><br />
+        <button onclick="ArgsLength('A','bb')" class="B">Arguments length</button><br />
+        <button onclick="getElements()" class="B">getElementsByTag</button><br />
+    </div>
+    <button onclick="enableCookies(this)">navigator.cookieEnabled</button><br />
+    <input type="text" onchange="upperCase()" id="ttt" /><br />
+    <button onclick="changeTEXT(this,document.documentElement.innerHTML)">document.documentElement.innerHTML = this html page</button><br />
+    <button onclick="ScreenHW()">screen.availHeight || screen.Height || colorDepth</button><br />
+    <button onclick="windowsLocation(this)">window.location || windows.history.back</button><br />
+    <button onclick="changeTEXT(this,navigator.appName)">navigator.appName</button><br />
+    <button onclick="window.confirm('Confirmation!!')">windows.confirm return true/false</button><br />
+    <button onclick="window.prompt('sometext','defaultText')">window.prompt(string,string) returns object</button><br />
+    <button onclick="makeCookie(2)">set cookie!</button><br />
+    <button onclick="loadCookie(this)">load cookie!</button><br />
+    <button onclick="StringThings(this)">StringArray</button><br />
+    <button onclick="DateMy(this)">GET DATE</button><br />
+    <button onclick="compareStringsCase('TTGG','TTgg',this)">compare TTgg to TTGG</button><br />
+    <button onclick="stacks(this)">stacks</button><br />
+    <button onclick="test(this)">TEST</button><br />
+    <button onclick="getFunctions()">function that returns functions</button><br />
+    <button onclick="storageF(this)">local storage</button><br />
+    <button onclick="showMeTypes(this)"> TYPES!! typeof</button><br />
+    <button onclick="getKEYS(this)">two of the same class</button><br />
+    <button onclick="SameClass(this)">same class? use === </button><br />
+    <button onclick="BooleanStringToNumber(this)">Convert Boolean/String to Number</button><br />
+    <button onclick="tryCatch()">costume throw</button><br />
+    <button onclick="RegExpExample()">Regular Expression</button><br />
+    <button onclick="RegExpExpressions()">^ Expressions, match()</button><br />
+    <button onclick="getRequest('my request')">
+        search in RegEXP in loacation.search<br />
+        for ?ttt=... getRequest('my request')
+    </button><br />
+    <button onclick="differnceInDays()">Difference in Days between 2 dates</button><br />
+    <button onclick="ArrayPointers()">Pointers!!! <br />
+     + Redefine Replace Character at Strings <br />
+        + Substr, adding to prototype functions</button><br />
+    <button onclick=""></button><br />
+    <button onclick=""></button><br />
+    <button onclick=""></button><br />
+    <button onclick=""></button><br />
+    <button onclick=""></button><br />
+    <button onclick=""></button><br />
+
+
+</body>
+</html>

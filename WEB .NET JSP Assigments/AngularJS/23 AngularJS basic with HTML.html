@@ -1,0 +1,26 @@
+<html>
+<head>
+     <link rel="stylesheet" href="jquery.mobile-1.4.5.css" type="text/css" />
+     <script src="angular.js"></script>
+</head>
+<body ng-app ng-init="FirstVirable ='initialize(ng-init)-virable'">
+    <h1>Hello, {{FirstVirable}}</h1>
+    change ^: 
+        <input type="text" ng-model="FirstVirable"><br>
+    
+    <p>waiting for click : {{SecondVirable}}</p>
+    <p>waiting for click : {{SecondVirable | uppercase}}</p>
+    <button ng-click="SecondVirable = 'button-virable-onClick(ng-click)-event'">OK</button><br>
+    
+    span virable:
+    <input type="text" ng-init="spanVirable = 'spann'" ng-model="spanVirable"><br>
+    <h1>=>, <span ng-bind="spanVirable"></span></h1>
+    
+    JSON virable:
+    <input type="text" ng-init="JSONobj = {a : 'x' , b : 'y'}" ng-model="JSONobj.a"><br>
+    <input type="text" ng-model="JSONobj.b"><br>
+    <h1>JSON.a= <span ng-bind="JSONobj.a"></span></h1>
+    <h1>JSON.b= <span ng-bind="JSONobj.b"></span></h1>
+    
+</body>
+</html>

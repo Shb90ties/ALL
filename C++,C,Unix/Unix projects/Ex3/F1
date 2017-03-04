@@ -1,0 +1,5 @@
+./AA: line 1: echo1: command not found
+1
+2
+abc
+./AA: line 4: seq2: command not found

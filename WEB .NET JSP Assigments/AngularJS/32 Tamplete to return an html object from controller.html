@@ -1,0 +1,35 @@
+<html>
+
+<head>
+
+     <link rel="stylesheet" href="jquery.mobile-1.4.5.css" type="text/css" />
+
+
+     <script src="angular.js"></script>
+
+
+       <script type="text/javascript">
+        angular.module('myApp', [])
+            .controller('myCtrl', function ($scope) {
+                $scope.name = 'First ';
+            })
+            .directive('exampleDirective', function() {
+                return {
+                    restrict: 'E',  
+                    template: '<p>Hello {{name}}!</p>',
+                    controller: function($scope, $element){
+                        $scope.name = $scope.name + "Second ";
+                    },
+                    link: function(scope, el, attr) {
+                        scope.name = scope.name + "Third ";
+                    }
+                }
+            })
+    </script>
+
+</head>
+<body ng-app="myApp" ng-controller="myCtrl">
+    <example-directive></example-directive>
+</body> 
+
+</html>

@@ -1,0 +1,30 @@
+<html>
+<head>
+<script type="text/javascript">
+    if (window.DeviceOrientationEvent) 
+    {       // only visible on cellphone not emulator
+        window.addEventListener('deviceorientation', function(event) 
+        {
+            var Alpha = event.alpha;    // will show the degrees of alpha : (spins in 360)
+            var Beta = event.beta;      // will show the degrees of beta : (spins in 180*)
+            var Gamma = event.gamma;    // will show the degrees of gamma : (spins in 90*)
+            document.getElementById("myAlpha").innerText = Alpha;
+            document.getElementById("myBeta").innerText = Beta;
+            document.getElementById("myGamma").innerText = Gamma;
+        });
+    }
+    else
+    {
+        alert("Not supported on your device or browser");
+    }
+</script>
+</head>
+<body>
+<div id="myAlpha"></div>
+<div id="myBeta"></div>
+<div id="myGamma"></div>
+</body>
+</html>
+
+
+

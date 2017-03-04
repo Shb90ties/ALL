@@ -1,0 +1,19 @@
+#!/bin/awk -f
+BEGIN { min="null";}
+{	for(i=1; i<=NF; i++){ nums[FILENAME,FNR,i]=$i; }
+	c=NF; cols[FILENAME]=c; l=FNR; lines[FILENAME]=l; }
+END { 	for(i=1; i < ARGC; i++){ file=ARGV[i];
+		c=cols[file]+1; l=lines[file]; first=0; second=0;
+		for(k=1; k<=l; k++){ nF=nums[file,k,k]; col=c-k;
+		nS=nums[file,k,col];
+		first=first+nF; second=second+nS; }
+		sum=first-second; sums[file]=sum;
+		if( ( min != "null" ) && ( sum < min ) ){ min=sum; }
+		if( min == "null" ){ min=sum; }
+		print file" "sum; }
+	LL="null";
+	for(i=1; i < ARGC; i++){ file=ARGV[i];
+	currMin=sums[file];
+	if( ( currMin == min ) && ( LL != "null" ) ){LL=LL" "file;}
+	if( ( currMin == min ) && ( LL == "null" ) ){LL=file;}}
+	print LL;	}

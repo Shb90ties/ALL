@@ -1,0 +1,6 @@
+./FF: line 2: pwd1: command not found
+./FF: line 4: echo2: command not found
+./FF: line 6: pwd2: command not found
+./FF: line 7: seq1: command not found
+./FF: line 8: echo8: command not found
+./FF: line 12: gg: cannot overwrite existing file

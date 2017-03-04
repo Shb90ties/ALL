@@ -1,0 +1,12 @@
+seq 3
+pwd1
+echo abc
+echo2
+echo 3
+pwd2
+seq1
+echo8
+echo def
+set -C
+echo aa>|gg
+echo bb>gg

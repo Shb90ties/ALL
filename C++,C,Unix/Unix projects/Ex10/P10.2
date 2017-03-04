@@ -1,0 +1,40 @@
+#!/bin/awk -f
+BEGIN{ files=""; }
+{	if( FNR == 1 )
+	{	NRArray[CF]=Cnr;	}
+	for(i=1; i <= NF; i++)
+	{	A[FILENAME,FNR,i]=$i;	}
+	NFArray[FILENAME]=NF;
+	CF=FILENAME;	Cnr=FNR;
+}
+END{	NRArray[CF]=Cnr;
+		for(i=1; i < ARGC; i++)
+		{	file=ARGV[i];	LT=1;	RT=1;
+			num=0;	number=0;
+			nf=NFArray[file]; nr=NRArray[file];
+			for(k=1; k <= nf; k++)
+			{	num=num+A[file,1,k];	}
+			for(j=1; j <= nr; j++)
+			{	for(k=1; k <= nf; k++)
+				{	number=number+A[file,j,k];	}
+				if( number != num )
+				{	LT=0;	}
+				number=0;	}
+			num=0;	number=0;
+			for(j=1; j <= nr; j++)
+			{	num=num+A[file,j,1];	}
+			for(j=1; j <= nf; j++)
+			{	for(k=1; k <= nr; k++)
+				{	number=number+A[file,k,j];	}
+				if( number != num )
+				{	RT=0;	}
+				number=0;	}
+			if( ( RT == 1 ) || ( LT == 1 ) )
+			{	print file" YES";
+				if( i+1 == ARGC )
+				{	files=files""file;	}
+				else
+				{	files=files""file" ";	}	}
+			else
+			{	print file" NO";	}	}
+		print files;	}

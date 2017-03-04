@@ -1,0 +1,1 @@
+Intel XDK -> JQuery mobile -> function Click_(e) stops sending after 5 requests , Intel XDK Cache problems

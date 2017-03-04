@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.0/angular.min.js"></script>
+    <script type="text/javascript">
+
+        angular.module('myApp', [])
+        .controller('base', function ($scope, $rootScope, $http) {
+            $scope.txt = ''; // another way : ['peragraph']
+            $scope.send = function (sender) {
+                $scope[sender] = $scope.txt;
+            }
+            $scope.toRoot = function () {
+                $rootScope.txt = $scope.txt;
+            }
+        });
+
+    </script>
+
+    <script src="JavaScript.js"></script>
+</head>
+<body ng-app="myApp">
+    <div ng-controller="base">
+        <h1>Controller 1</h1>
+        <input type="text" ng-model="txt" ng-change="toRoot()" />
+        <p>{{txt}}</p>
+        <button ng-click="send('send')">Sent : {{send}}</button>
+    </div>
+    <hr />
+    <div ng-controller="body">
+        <h1>Controller 2</h1>
+        <p>{{txt}}</p>
+    </div>
+</body>
+</html>

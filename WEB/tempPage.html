@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <script type="text/javascript">
+        // all data can be found encoded in windows.location.search
+        
+        function getRequestValue(RequestName) {
+            var checkExists = new RegExp('[?&]' + encodeURIComponent(RequestName) + '=([^&]*)').exec(location.search);
+            if (checkExists) {
+                return encodeURIComponent(checkExists[1]);
+            }
+            return 'no-value-for{' + RequestName + '}';
+        }
+
+        var strng = 'name request is : ' +
+                    getRequestValue('name') + ' , ' +
+                    getRequestValue('gender') + ' , ' +
+                    getRequestValue('hobbie') + ' , ' +
+                    getRequestValue('about') + ' , ' +
+                    getRequestValue('MovieEncryption') + ' , ' +
+                    getRequestValue('rang') + ', ' +
+                    getRequestValue('checkBoc') + ' , ' +
+                    getRequestValue('colr') + ' , ' +
+                    getRequestValue('myDate') + ' , ' +
+                    getRequestValue('myDatetime') + ' , ' +
+                    getRequestValue('emaill') + ' , ' +
+                    getRequestValue('monYer') + ' , ' +
+                    getRequestValue('quantity') + ' , ' +
+                    getRequestValue('telphn') + ' , ' +
+                    getRequestValue('week-year') + ' , ' +
+                    getRequestValue('code');
+        document.write(strng);
+    </script>
+</body>
+</html>

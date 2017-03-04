@@ -1,0 +1,10 @@
+
+read x
+while read y
+do
+ if [ $y -gt $x ]
+  then
+  x=$y
+ fi
+done
+echo $x

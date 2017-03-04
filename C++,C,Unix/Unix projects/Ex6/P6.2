@@ -1,0 +1,2 @@
+char=$(echo $1 | egrep -o . | tail -2 |head -1)
+echo $1 | egrep -o . | egrep -c $char

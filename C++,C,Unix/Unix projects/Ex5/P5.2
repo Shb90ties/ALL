@@ -1,0 +1,15 @@
+read x
+echo $x >| temp
+file=$(cut -d" " -f1 <temp)
+i=$(cut -d" " -f2 <temp)
+j=$(cut -d" " -f3 <temp)
+k=$(cut -d" " -f4 <temp)
+sum=0
+while read line
+do
+	echo $line >| temp
+	sum=$[$sum+$(cut -d" " -f$i <temp)]
+	sum=$[$sum+$(cut -d" " -f$j <temp)]
+	sum=$[$sum+$(cut -d" " -f$k <temp)]
+done<$file
+echo $sum

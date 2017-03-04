@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	
+	<!-- basics -->
+	<xs:element name="note">
+	  <xs:complexType>
+		<xs:sequence>
+		  <xs:element name="to" type="xs:string"/>
+		  <xs:element name="from" type="xs:string"/>
+		  <xs:element name="heading" type="xs:string"/>
+		  <xs:element name="body" type="xs:string"/>
+		  <xs:element name="agee" type="xs:integer"/>
+		</xs:sequence>
+	  </xs:complexType>
+	</xs:element>
+	
+	<!-- values -->
+	<xs:element name="age">
+	  <xs:simpleType>
+		<xs:restriction base="xs:integer">
+		  <xs:minInclusive value="0"/>
+		  <xs:maxInclusive value="120"/>
+		</xs:restriction>
+	  </xs:simpleType>
+	</xs:element>
+	
+	<!-- attributes -->
+	<xs:element name="product">
+	  <xs:complexType>
+		<xs:attribute name="prodid" type="xs:positiveInteger"/>
+	  </xs:complexType>
+	</xs:element>
+	
+	<!-- Example -->
+	<xs:element name="GGG" type="xs:date"/>
+	<GGG>2002-09-24</GGG>
+	
+	<xs:element name="TTT" type="xs:time"/>
+	<TTT>09:00:00</TTT>
+	
+	<xs:element name="prize" type="xs:decimal"/>
+	<prize>999.50</prize>
+	
+	<!-- BOOLEAN -->
+	<xs:attribute name="disabled" type="xs:boolean"/>
+	<prize disabled="true">999</prize>
+
+</xs:schema>
+
+<!--
+	xs:string
+	xs:decimal
+	xs:integer
+	xs:boolean
+	xs:date
+	xs:time
+-->

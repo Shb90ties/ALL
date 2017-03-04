@@ -1,0 +1,21 @@
+﻿body {
+    background-color: gray;
+}
+li{
+    width: 45%;
+    border: 1px solid black;
+    background-color: aqua;
+    font-family: Arial;
+    font-weight: bold;
+}
+li.changers:hover{
+    background-color: azure;
+}
+.addBox{
+    position: fixed;
+    width: 45%;
+    right : 1px;
+    top: 45%;
+    background-color: white;
+    border: 1px solid black;
+}

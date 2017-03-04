@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="stylesheet" href="jquery.mobile-1.4.5.css" type="text/css" />
+    <script src="angular.js"></script> 
+    
+    <script type="text/javascript">
+        angular.module('myApp', [])
+        .controller('PlusMinusCtrl',['$scope','$http',function($scope, $http) 
+        {
+            $scope.PlusMinus = function (e) 
+            {
+                var first = this.myModel.FirstInput;
+                var second = this.myModel.SecondInput;
+                var elem = angular.element(e.srcElement);
+                var action = 'Minus';
+                if (elem.text() == '+')
+                { action = 'Plus'; }
+                    // the request parameters
+        		var myString = "action=" + action + "&first=" + first + "&second=" + second;
+                var path = "http://localhost:12345/?" + myString ;
+		          
+                    // SENDING + RECIEVING
+                $http.get(path)
+                .then(function (result)
+                {   // on getting result successfully           
+			         $scope.result = result.data;   
+                })
+                .catch(function (data, status, headers, config)
+                {   // on failure to reach server
+                    $scope.ErrorList = 'Failed to reach '+path+' Errors// Data : '+data+' Status : '+status+' Headers : '+headers+' Condifg : '+config;
+                });
+            }
+        }]);
+
+    </script>
+</head>
+<body ng-app="myApp">
+<div ng-controller="PlusMinusCtrl">
+    <input type="text" ng-model="myModel.FirstInput"/>
+    <button ng-click="PlusMinus($event)">+</button>
+    <button ng-click="PlusMinus($event)">-</button>
+    <input type="text" ng-model="myModel.SecondInput"/>
+    =
+    <label> {{result}} </label>
+    <hr>
+    <p>{{ErrorList}}</p>
+</div>
+</body>
+</html>

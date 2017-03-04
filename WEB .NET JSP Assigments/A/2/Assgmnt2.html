@@ -1,0 +1,180 @@
+﻿<html>
+
+<script language="JavaScript">
+
+    function Init() {
+        var new_tbody = document.createElement("tbody");
+        var nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
+        nums = Shuffle(nums);
+        var new_row, new_col, gen_nums;
+        var counter = 1, rnd;
+
+        for (var row = 0; row < 4; row++) {
+            new_row = document.createElement("tr");
+            for (var col = 0; col < 4; col++) {
+                new_col = document.createElement("td");
+
+                var myButton = document.createElement('input');
+                myButton.id = counter;
+                var temp = nums[counter-1];
+                myButton.name = temp;
+                myButton.type = 'button';
+                myButton.value = temp;
+                myButton.style.border = 'groove';
+                myButton.style.width = '60px';
+                myButton.style.height = '60px';
+                myButton.style.fontSize = 'X-Large';
+                myButton.style.backgroundColor = getRandomColor();
+                myButton.onclick = function () { myClick(this); };
+                new_col.appendChild(myButton);
+
+                counter++;
+                if (myButton.value == "16")
+                {
+                    myButton.style.display = 'none';
+                }
+                new_row.appendChild(new_col);
+            }
+            new_tbody.appendChild(new_row);
+        }
+        divTable.appendChild(new_tbody);
+    }
+
+    function Shuffle(nums) {
+        ranNums = [],
+       i = nums.length,
+       j = 0;
+       var num, index, temp;
+
+        while (i--) {
+            j = Math.floor(Math.random() * (i + 1));
+            ranNums.push(nums[j]);
+            nums.splice(j, 1);
+        }
+        for (var i = 0; i < ranNums.length; i++) {
+            if (ranNums[i] == 16) {
+                num = ranNums[i];
+                index = i;
+                break;
+            }
+        }
+        if (ranNums[15] != 16)
+        {
+            temp = ranNums[15];
+            ranNums[15] = 16;
+            ranNums[index] = temp;
+        }
+        return ranNums
+    }
+
+    function getRandomColor() {
+        var letters = '0123456789ABCDEF'.split('');
+        var color = '#';
+        for(var i=0; i<6 ; i++)
+        {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+    
+    function myClick(clickedButton) {
+        var left = 0, right = 0, up = 0, down = 0, clickName = 0, clickColor = 0;
+        var one = document.getElementById(1);
+        var two = document.getElementById(2);
+
+        var click = document.getElementById(clickedButton.id);
+
+        left = document.getElementById(clickedButton.id - 1);
+        if (left == null)
+            left = -1;
+        right = document.getElementById(clickedButton.id - (-1));
+        if (right == null)
+            right = -1;
+        up = document.getElementById(clickedButton.id - 4);
+        if (up == null)
+            up = -1;
+        down = document.getElementById(clickedButton.id - (-4));
+        if (down == null)
+            down = -1;
+
+       if (right != -1)
+        if (right.style.display == 'none')
+        {
+        clickName = click.name;
+        clickColor = click.style.backgroundColor;
+
+        click.innerText = right.name;
+        click.name = right.name;
+        click.style.backgroundColor = right.style.backgroundColor;
+        click.style.display = 'none';
+
+        right.innerText = clickName;
+        right.name = clickName;
+        right.style.backgroundColor = clickColor;
+        right.style.display = "";
+        }
+
+           if (up != -1) 
+            if(up.style.display == 'none') {
+            clickName = click.name;
+            clickColor = click.style.backgroundColor;
+
+            click.innerText = up.name;
+            click.name = up.name;
+            click.style.backgroundColor = up.style.backgroundColor;
+            click.style.display = 'none';
+
+            up.innerText = clickName;
+            up.name = clickName;
+            up.style.backgroundColor = clickColor;
+            up.style.display = "";
+        }
+          if (down != -1)
+           if (down.style.display == 'none') {
+            clickName = click.name;
+            clickColor = click.style.backgroundColor;
+
+            click.innerText = down.name;
+            click.name = down.name;
+            click.style.backgroundColor = down.style.backgroundColor;
+            click.style.display = 'none';
+
+            down.innerText = clickName;
+            down.name = clickName;
+            down.style.backgroundColor = clickColor;
+            down.style.display = "";
+        }
+          if (left != -1)
+           if (left.style.display == 'none') {
+            clickName = click.name;
+            clickColor = click.style.backgroundColor;
+
+            click.innerText = left.name;
+            click.name = left.name;
+            click.style.backgroundColor = left.style.backgroundColor;
+            click.style.display = 'none';
+
+            left.innerText = clickName;
+            left.name = clickName;
+            left.style.backgroundColor = clickColor;
+            left.style.display = "";
+           }
+          if(one.name == 1 && two.name == 2)
+          {
+              var temp;
+              var r = confirm("Start New Game ?");
+              if (r == true) {
+                  location.reload();
+              }
+              else
+                  this.close();
+          }
+    }
+
+    window.onload = Init;
+</script>
+
+<form style="position:absolute; top:100px; left:100px;">
+    <table id="divTable"></table>
+</form>
+</html>

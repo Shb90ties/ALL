@@ -1,0 +1,32 @@
+﻿<!doctype html> 
+<html>   
+<head> 
+	<script src="http://localhost:12345/socket.io/socket.io.js"></script> 
+	<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.js"></script>
+
+	<script type="text/javascript">
+        
+	$(document).bind("pageinit", function()
+    {
+        var socket = io("http://localhost:12345");
+        $('#sendB').bind('click',function()
+        {
+           var Messg_ = $('#textMSG').val();
+           socket.emit('toServer message', Messg_);
+        });
+        socket.on('toClient message',function(msg)
+        {
+            var peragrph = '<p>-'+msg+'</p>';
+            $(peragrph).appendTo('#chatBoard');
+        });
+	}); 
+        
+    </script>
+</head> 
+<body>
+    <h1>Socket.io Broadcast</h1><hr>
+    <button id="sendB">Send</button><input type="text" id="textMSG"/><hr>
+    <div id="chatBoard"></div>
+</body>
+</html>

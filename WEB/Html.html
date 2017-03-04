@@ -1,0 +1,455 @@
+﻿<!DOCTYPE html>
+<!-- XHTML type must have !DOCTYPE
+     XHTML : 
+        Attribute must be lower with qutes cannot be minimized
+        Elements must be properly ordered, must be closed,all in one root
+        this is an error : <table WIDTH="100%">
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <!--
+        meta used for inserting information about the document
+        meta.viewport { used for responsive webs, change scale for phones }
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        examples : 
+            <meta charset="UTF-8">
+            <meta name="author" content="John Doe">
+
+        base , used to tell the document, which address items are stored at
+        example : 
+            <base href="C:/images/" target="_blank">
+            <body>
+               <img src="gg.jpg"/>
+                // will look for C:/images/gg.jpg
+       base font, tells the default font in the page
+            <basefont color="red" size="5"> {not supported in HTML5}
+       Async script :
+            <script src="demo_async.js" async></script>
+                // for asyncronized functions
+         charSET :
+            <script src="myscripts.js" charset="UTF-8">
+                // used for external character coding
+         defer :
+            <script src="demo_defer.js" defer>
+                // means that it will read the whole page before the js file
+        Cache : 
+            <html manifest="demo.appcache">
+    -->
+</head>
+<body>
+    <!-- All html tags has attributes {alt,disabled,href,id,src,style,title} -->
+
+    <a href="https://www.google.co.il">Google hyper link</a><br />
+    <a href="#" onclick="alert('function call!')">link to function</a><br />
+    <a href="#ppp">jump to peragraph id="ppp"</a><br />
+         <!--hyper link to address and focus on html element page1.html#pp  -->
+    <a href="https://www.google.co.il" target="_blank">open in another tab</a><br />
+    <a href="https://www.google.co.il" target="_parent">open outside frame of link</a><br />
+    <a href="https://www.google.co.il" target="_top">open inside frame of link</a><br />
+    <hr />
+
+
+    <img src="http://files.softicons.com/download/game-icons/super-mario-icons-by-sandro-pereira/ico/Mushroom%20-%201UP.ico"/>
+    <img src="http://files.softicons.com/download/game-icons/super-mario-icons-by-sandro-pereira/ico/Mushroom%20-%201UP.ico" height="100" width="100" />
+    <img src="deletedPIC.gif" alt="image is DEAD!" height="50" width="150" /><hr />
+    
+    <h1>H1 title, goes up to h6</h1>
+    <h2>H2....</h2><h3>H3...</h3><hr />
+
+    <pre>PRE element = small text!!</pre>
+    <q>q => qoutes "ddddd"</q>
+    <blockquote cite="source">
+        blockquote from cite source
+    </blockquote>
+    abbr-> <abbr title="info about the W">This got hidden value</abbr><br />
+    address : <address>Karnel ST. 17 street</address>
+    cite : <cite>London,Museam</cite><br />
+    write from right to left : <bdo dir="rtl">right to left</bdo><br />
+    code that isn't effective <code>var x = 5;</code><br />
+    <samp>this is a samp type text</samp>
+    <pre> 
+        this text box (pre) will have \n as br
+        another pre
+    </pre>
+    mathematics fonts : <var>X</var> = <var>5</var><sub>2</sub><br />
+
+    <hr />
+
+    <p id="ppp">
+        <b>bold text</b> , <strong>strong text</strong><br />
+        <i>iTalic text</i> , <em>Emphasized text</em><br />
+        <mark>Marked text</mark> , <small>small text</small><br />
+        <del>Deleted text</del> , <ins>Inserted text</ins><br />
+        <sub>Subscript text</sub> , <sup>Superscript text</sup><br />
+        <s>dead text!!</s> , <u>UNDERLINE text type</u>
+    </p>
+    <details>
+        <summary>This is details!</summary>
+        <p>details info...</p>
+    </details>
+    Datetime : <time datetime="2008-02-14 20:00">Hog hod day</time>
+    <hr />
+
+    Map! click on different areas on the mushtroom : <br />
+    <img src="1UP.ico" usemap="#myMap" height="100" width="100" />
+        
+    <map name="myMap">  <!-- coords {x,y,width,height} {x,y,radius}-->
+        <area shape="rect" coords="0,0,50,50" alt="head" href="#" onclick="alert('head')" />
+        <area shape="circle" coords="60,60,30" alt="bottm" href="#" onclick="alert('bottom')" />
+    </map><hr />
+
+    <style>         /* border-collapse:collapse; is norm table */
+        table, th, td{ border: 1px solid black;  }
+        caption{ display: table-caption; text-align: center; }
+     </style>
+    <table style="width:50%">
+        <colgroup>
+            <col span="1" style="background-color:aqua" />
+        </colgroup>
+        <caption>This is a table</caption>
+        <thead>
+            <tr>
+                <th>column</th>
+                <th>columnB</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>column</th>
+                <th>columnB</th>
+            </tr>
+        </tbody>>
+        <tfoot>
+            <tr>
+                <th>end</th>
+            </tr>
+        </tfoot>
+    </table><hr />
+
+    <ul style="list-style-type:disc">
+        <!-- square,decimal,lower-alpha,{lower|upper}-greek -->
+        <li>List</li>
+        <li>A</li>
+        <li>B</li>
+    </ul>
+
+    <ol type="I">
+        <li>ol is numbers by default</li>
+        <li>types options: i,a,A,1,I</li>
+    </ol>
+
+    <dl>
+        <dt>DL type list</dt>
+        <dd>dt is the head dd value</dd>
+        <dt>DT</dt>
+        <dd>dd</dd>
+    </dl><hr />
+
+    Block Level elements {div,form,p,h1-6} : <br />
+    inline Level : {span} : in CSS : span.note{...}<br />
+
+    <hr />
+       Iframe :
+        <iframe src="C:/Projects/JavaScript/Html.html"></iframe><br />
+        <noframes>browser doesn't support iFrame</noframes>
+    <hr />
+
+    <script> document.write('browser supports JS'); </script>
+    <noscript>browser doesn't support JS</noscript>
+    <hr />
+
+    HTML layouts : <br />
+    <style>
+            div.container { /*....*/ }
+            header, footer { color: white; background-color: black; }
+            nav { /*..... */ float: left; }
+            nav ul { /*<ul><li> inside nav */ }
+            nav ul a { /* for <ul><li><a> */ }
+            article { /*....*/ border-left: 1px solid black; }
+    </style>
+    <div class="container">
+        <header>my Article!!</header>
+        <nav>
+            link1 <br /> link2 <br /> .....
+        </nav>
+        <section>my section</section>
+        <article>article main text</article>
+        <aside> some things aside</aside>
+        <footer>all rights belongs to...</footer>
+    </div><hr />
+
+    <p>
+        special characters in HTML : <br />
+        &#162; ~ &cent; , &#163; ~ &pound; ,
+        &#169; ~ &copy; , &#8721; ~ &sum; <br />
+        &#9830; point! &diams;
+    </p><hr />
+
+    HTML forms:<br />
+    form attributes {accept-charset,action,autocomplete,enctype,method,name,target}
+    <br /> form attributes in HTML5 {color,date,datetime-local,emal,month,number,range,search,tel,time,url,week}
+    <form action="tempPage.html" method="get">
+    <!--
+        for for JavaScript
+        <form action="javascript:void(0)" onsubmit="JSfunction()">
+    -->
+        <fieldset>
+            <legend>FieldSET contains form elements</legend>
+            <input type="text" name="name" value="type name" size="40"/><br />
+            <input type="radio" checked="checked" name="gender" value="male" />male
+            <input type="radio" name="gender" value="female" />female<br />
+            <select name="hobbie">
+                <optgroup label="firstGroup">
+                    <option value="football">playing football</option>
+                    <option selected="selected" value="nothing">nothing</option>
+                </optgroup>
+                <optgroup label="secondGroup">
+                    <option value="other">other</option>
+                </optgroup>
+                </select><br />
+            <textarea name="about" rows="2" cols="25">Description</textarea><br />
+            <datalist id="browser">
+                <option value="FireFox">firefox!</option>
+            </datalist><br />
+            Encription : <keygen name="MovieEncryption" /><br />
+            <script>
+                function onRange() {
+                    document.getElementById('prgp').innerHTML = document.getElementById('r').value;
+                }
+            </script>
+            0 <input type="range" id="r" name="rang" value="50"
+                     onchange="onRange()" min="0" max="200" /> 200
+            <p id="prgp"></p>
+            <input type="checkbox" name="checkBoc" value="option1" />option1 
+            <input type="checkbox" name="checkBoc" value="option2" />option2<br />
+            Pick a color:...
+            <input type="color" name="colr" /><br />
+            Date: <input type="date" name="myDate" /><br />
+            Date+time : <input type="datetime-local" name="myDatetime" /><br />
+            eMail : <input type="email" name="emaill" autocomplete="on" /><br />
+            {Month-Year} : <input type="month" name="monYer" /><br />
+            pick a number : <input type="number" name="quantity" min="5" max="7" />
+             {Restictions: maxlength,pattern,readonly,required,step,size}<br />
+            telephone maxLength 10 : <input type="tel" name="telphn" maxlength="10"/><br />
+            week : <input type="week" name="week-year" /><br />
+            disabled text : <input type="text" name="diss" value="disabled" disabled /><br />
+            Code? only [A-Ca-c]{3} : 
+            <input type="text" name="code" pattern="[A-Ca-c]{3}" title="only a to c 3 chars" /><br />
+            numbers jump by 3 <input type="number" name="by3" step="3" /><br />
+            MUST SELECT AN OPTION : <select name="mustPicker" required>
+                <option value="">None</option>
+                <option value="mustPick">mustPick</option>
+            </select>
+            
+
+            <input type="reset" /><br />
+            <input type="submit" value="send" /><br />
+            <input type="submit" formaction="tempPage.html" value="submit to another page" formtarget="_blank" />
+        </fieldset>
+    </form><hr />
+
+    Embeded : <br />
+    Player : <br />
+    <audio controls>
+        <source src="lalal.mp3" type="audio/mp3" />
+    </audio><br />
+    Object{wav file} and Param:
+    <object data="horse.wav">
+        <param name="autoplay" value="true">
+    </object>
+    flash player swf : 
+    <embed src="someFlash.swf" allowfullscreen="true">
+    <style> embed.focus{ outline: none; } </style><br />
+    Video avi : 
+    <video width="150" height="150">
+        <source src="theVoice.mp4" type="video/mp4" />
+    </video>
+
+    <hr />
+
+    Canvas : <br />
+    <canvas id="myCanvas" width="600" height="80"></canvas>
+    <script>
+        var canvas = document.getElementById("myCanvas");
+        var ctx = canvas.getContext("2d");
+        ctx.fillStyle = "#FF0000";
+        ctx.fillRect(0, 0, 80, 80);
+        ctx.moveTo(0, 0); // change start point of line
+        ctx.lineTo(80, 50);
+        ctx.stroke();
+        ctx.font = "10px Arial";
+        ctx.fillStyle = "black";
+        ctx.fillText("text on canvas", 10, 10);
+        ctx.beginPath();
+        ctx.arc(35, 35, 20, 0, 2 * Math.PI);
+        ctx.stroke();
+        var mixed = ctx.createLinearGradient(0, 80, 80, 160);
+        mixed.addColorStop(0, "red");
+        mixed.addColorStop(1, "white");
+        ctx.fillStyle = mixed;
+        ctx.fillRect(80, 0, 80, 80);
+        var mixedCircle = ctx.createRadialGradient(75, 50, 5, 90, 60, 100);
+        mixedCircle.addColorStop(0, "red");
+        mixedCircle.addColorStop(1, "white");
+        ctx.fillStyle = mixedCircle;
+        ctx.fillRect(160, 0, 80, 80);
+        var img = document.createElement('img');
+        img.src = "1UP.ico";
+        ctx.drawImage(img, 240, 0);
+    </script>
+    <br />SVG : <br />
+    <style>
+        .svgClass { fill: green; stroke: black; stroke-width: 2; }
+    </style>
+    <svg width="600" height="100">
+        <circle cx="50" cy="50" r="45" class="svgClass"></circle>
+        <rect x="100" y="0" width="50" height="50" class="svgClass"></rect>
+        <rect x="160" y="0" rx="10" ry="10" width="50" height="50" class="svgClass"></rect>
+        <polygon points="100,10 40,198 190,78 10,78 160,198" class="svgClass"></polygon>
+        <ellipse cx="250" cy="30" rx="35" ry="25" class="svgClass"></ellipse>
+    </svg>
+    <hr />
+
+    Picture inside a figure :
+    <figure>
+        <img src="1UP.ico" height="100" width="100">
+        <figcaption>*pic description*</figcaption>
+    </figure>
+    <style> figcaption{ display:block; } </style>
+    <hr />
+
+    Menu:
+    <menu type="toolbar">
+        <menuitem label="Refresh" onclick="alert('tik')">menuItem1</menuitem>
+        <menuitem label="BBB" onclick="alert('TOK')">menuItem2</menuitem>
+    </menu>
+    <hr />
+
+    Loading : 
+    <progress id="load" value="1" max="50"></progress>
+    <script>
+        function loadIT() {
+            document.getElementById('load').value += 2;
+            if (document.getElementById('load').value < 48) {
+                setTimeout(loadIT, 1000);
+            }
+        }
+        loadIT();
+    </script>
+
+    <hr />
+
+    <section>
+        < section > = This is like a div!
+    </section>
+    <hr>
+    
+    MEDIA : <br />
+    { MPEG,AVI,WMV,QuickTime,RealVideo,Flash,Ogg,WebM,MPEG-4 } <br />
+    { .mpg,.avi,.wmv,.mov,.rm,.ram,.swf,.flv,.ogg,.webm,.mp4 } <br />
+    AUDIO : <br />
+    { .mid,.midi,.wma,.aac,.wav,.mp3 } <br />
+    <video width="320" height="240" controls>
+        <source src="movie.mp4" type="video/mp4">
+        <source src="movie.ogg" type="video/ogg">
+        Your browser does not support the video tag.
+    </video><br />
+
+    <audio controls>
+        <source src="horse.ogg" type="audio/ogg">
+        <source src="horse.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio><br />
+
+    <object width="400" height="50" data="bookmark.swf"></object><br />
+
+    <iframe width="420" height="345" src="https://www.youtube.com/embed/XGSy3_Czz8k"></iframe>
+    <hr />
+
+    Drag and drop : <br />
+    <script>
+        function allowDrop(ev)
+        { ev.preventDefault(); }
+
+        function drag(ev)
+        { ev.dataTransfer.setData("text", ev.target.id); }
+
+        function drop(ev) {
+            ev.preventDefault();
+            var data = ev.dataTransfer.getData("text");
+            ev.target.appendChild(document.getElementById(data));
+        }
+    </script>
+
+    <div id="div11" ondrop="drop(event)" ondragover="allowDrop(event)"
+         style="width:100px; height:100px; border:1px solid black;"></div>
+    <img id="img11" src="1UP.ico" draggable="true" ondragstart="drag(event)"
+         width="60" height="60" />
+
+    <!--GRID-->
+    <hr />
+    <h1>Grid on - width: (100+)% , height 600px (3x6)</h1>
+
+    <style>
+        .GridContainer{
+            margin-left: -100px;
+            padding-left: 100px;
+            margin-right: -15px;
+            padding-right: 15px;
+
+            background-color: aqua;
+            width: 100%;
+            height: 600px;
+        }
+        [class*="grid-row-"]{
+            display: inline-block;
+            width: 100%;
+            height: 33%;
+
+            border-bottom: 1px solid black;
+        }
+        [class*="grid-col-"]{
+            display: inline-block;
+            width: 16%;
+            height: 100%;
+
+            text-align: center;
+            border-left: 1px dotted navy;
+        }
+        [class*="grid-col-"]:hover{
+            background-color: grey;
+        }
+
+    </style>
+
+    <div class="GridContainer" id="GridContainer">
+        <script>
+            var GridContainer = document.getElementById('GridContainer');
+            for (var i = 0; i < 3; i++) {
+                var row = document.createElement('div');
+                row.className = 'grid-row-' + i;
+                for (var j = 0; j < 6; j++) {
+                    var col = document.createElement('div');
+                    col.className = 'grid-col-' + j;
+                    col.onmouseover = ShowGridCol;
+                    row.appendChild(col);
+                }
+                GridContainer.appendChild(row);
+            }
+
+            function ShowGridCol() {
+                var col_class = this.className;
+                var row_class = this.parentNode.className;
+                var j = col_class.match(/\d+/); // regExp get number
+                var i = row_class.match(/\d+/);
+                /* short cut putting i+','+j in col.id =..
+                        this.id.match(/\d+/g); = [i,j] */
+                this.innerHTML = '(' + i + ',' + j + ')';
+            }
+        </script>
+    </div>
+
+
+</body>
+</html>

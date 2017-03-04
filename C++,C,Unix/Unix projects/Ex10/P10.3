@@ -1,0 +1,19 @@
+#!/bin/awk -f
+BEGIN{
+split("January February March April May June July August September October November December",Months);
+split("",counter);}
+function get_Num(month){ M=month;
+	for(aM=1; aM <= length(Months); aM++)
+	{ M2=Months[aM]; if( M == M2 ){ return aM; } }	}
+{	if( FNR == 1 ){ maxez[CurrFN]=max; max="null"; }
+	MonthNum=get_Num($2); CurrFN=FILENAME; times[FILENAME]=FNR;
+	counter[FILENAME,MonthNum]=counter[FILENAME,MonthNum]+1;
+	c=counter[FILENAME,MonthNum]; get_Month[MonthNum]=$2;
+	if( ( max != "null" ) && ( max < c ) ){ max=c; }
+	if( max == "null" ){ max=c; }	}
+END{ maxez[CurrFN]=max;
+	for(i=1; i < ARGC; i++){ file=ARGV[i]; max=maxez[file];
+	Line=""; t=times[file];
+		for(k=1; k <= 12; k++){ count=counter[file,k];
+		if( count == max ){ Mon=get_Month[k]; Line=Line""Mon" ";}}
+	printf file" "max" "Line; print t; }	}

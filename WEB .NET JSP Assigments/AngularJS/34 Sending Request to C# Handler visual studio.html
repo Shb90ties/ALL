@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+     <script src="angular.js"></script>    
+     <script type="text/javascript">
+        angular.module('myApp', [])
+            .controller('PlusMinusCtrl', ['$scope', '$http',
+                    function ($scope, $http) { 
+
+                $scope.PlusMinus = function (e) {
+                    var elem = angular.element(e.srcElement);
+
+                    var first = this.myModel.FirstInput;
+                    var second = this.myModel.SecondInput;
+
+		    var path = "http://localhost:56105/00_02_Plus_Minus_int_Jsonp/Handler.ashx?callback=JSON_CALLBACK";                   
+		    path += "&num1=" + first + "&num2=" + second;
+                  path += "&operation=";
+                  if (elem.text() == '+')
+                      path += "Plus";
+                 else
+                       path += "Minus";
+//                  $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+                   $http.jsonp(path)
+                        .success(function (data) {
+                            alert(data.res);
+                            $scope.result = data.res;
+                        })
+                    .error(function (data, status, headers, config) {
+                        alert("ERROR");
+                        alert(data);
+                        alert(status);
+                        alert(headers);
+                        alert(config);
+                    });
+                }
+                    }]);
+
+    </script>
+</head>
+<body ng-app="myApp">
+<div ng-controller="PlusMinusCtrl">
+    <input type="text" ng-model="myModel.FirstInput"/>
+    <button ng-click="PlusMinus($event)">+</button>
+    <button ng-click="PlusMinus($event)">-</button>
+    <input type="text" ng-model="myModel.SecondInput"/>
+    =
+    <label> {{result}} </label>
+</div>
+</body>
+</html>

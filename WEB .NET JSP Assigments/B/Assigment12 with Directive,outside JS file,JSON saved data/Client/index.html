@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Assigment 12</title>
+    <link rel="stylesheet" href="jquery.mobile-1.4.5.css" type="text/css" />
+    <script src="angular.js"></script>
+    
+    <style type="text/css">
+        .PlayBtn
+        {
+            width: 60px;
+            height: 60px;
+            position: absolute; 
+            
+            -webkit-animation-name:none;
+            -webkit-animation-duration: 0.5s;
+            -webkit-animation-timing-function: linear;
+            -webkit-animation-iteration-count: 1;
+            -webkit-animation-play-state: none; 
+            -webkit-animation-fill-mode: forwards;
+        }
+        @-webkit-keyframes myRight
+        {
+            0% { -webkit-transform: translateX(0px);}
+            100% { -webkit-transform: translateX(60px);} 
+        }
+
+        @-webkit-keyframes myLeft
+        {
+            0% { -webkit-transform: translateX(0px);}
+            100% { -webkit-transform: translateX(-60px);}
+        }
+
+        @-webkit-keyframes myUp
+        {
+            0% { -webkit-transform: translateY(0px);}
+            100% { -webkit-transform: translateY(-60px);}
+        }
+
+        @-webkit-keyframes myDown  
+        {
+            0% { -webkit-transform: translateY(0px);}
+            100% { -webkit-transform: translateY(60px);} 
+        }
+    </style>
+    
+    <script type="text/javascript">
+        angular.module('myApp', [])
+        .controller('myCtrl',['$scope','$http','$compile',function($scope, $http, $compile)
+        {
+            $scope.path_ = "http://localhost:12345/?";
+            var myPath = $scope.path_+"action=GetGame";
+            $scope.numIndex = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+            $scope.lockk = false;
+            $http.get(myPath)
+            .then(function(result)
+            {
+                $scope.nums = (eval(result)).data.nums;
+                $scope.colrs = (eval(result)).data.colrs;
+                var el = '<div my-board></div>'; 
+                    // method 1 : my-board connected to 'myBoard' in directive
+                    // method 2 : without directive => var el = '<button ng-repeat="i in...
+                var element = angular.element(document.querySelector('#space-for-buttons'))
+                var generated = element.html(el);
+                $compile(generated.contents())($scope);
+            })
+            .catch(function (data, status, headers, config){ $scope.AppStatus = 'Cannot reach server'; });
+
+            $scope.myFloor = function(i){ return Math.floor(i/4); };
+            $scope.RandColr = function(i){ return $scope.colrs[i]; };
+            $scope.RandNum = function(i){ return $scope.nums[i]; };
+            $scope.GetVisbl = function(i)
+            {
+                if( $scope.nums[i] == 0 ){ return 'hidden'; }
+                return 'visible';
+            };
+            $scope.myClick = function($event)
+            {
+                if($scope.lockk){ return; }
+                var virbls = new Object();
+                virbls.id = event.target.id; virbls.BG = document.getElementById('myBod').style.background;
+                var cPath = $scope.path_ + "action=Move&Virbls="+JSON.stringify(virbls);
+                $http.get(cPath)
+                .then(function(result)
+                {
+                    var answer = (eval(result)).data;
+                    if( answer.verdict == "Move" )
+                    {
+                        document.getElementById('myBod').style.background = answer.color;
+                        $scope.lockk = true;
+                        $scope.animate((parseInt(answer.myID)),(parseInt(answer.empty)),answer.Winner);
+                    }
+                })
+                .catch(function (data, status, headers, config){ $scope.AppStatus = 'Cannot reach server'; });
+            };
+            $scope.animate = function(myID,empty,winner)
+            {
+                var movQuery = document.getElementById(myID);
+                var movAnglr = angular.element(movQuery);
+                var orgLeft = movQuery.style.left;
+                var orgTop = movQuery.style.top;
+                if( myID + 4 == empty )
+                    movAnglr.css('-webkit-animation-name', 'myDown');
+                if( myID - 4 == empty )
+                    movAnglr.css('-webkit-animation-name', 'myUp');
+                if( (myID + 1 == empty && (myID+1)%4 != 0) )
+                    movAnglr.css('-webkit-animation-name', 'myRight');
+                if( (myID - 1 == empty && (myID)%4 != 0) )
+                    movAnglr.css('-webkit-animation-name', 'myLeft');
+                movAnglr.css('-webkit-animation-play-state', 'running');
+                setTimeout(function()
+                {
+                    movQuery.style.left = orgLeft;
+                    movQuery.style.top = orgTop;
+                    movAnglr.css('-webkit-animation-play-state', 'none');
+                    movAnglr.css('-webkit-animation-name', 'none');
+                    $scope.lockk = false;
+                    $scope.switch_(myID,empty,winner);
+                },500);
+            };
+            $scope.switch_ = function(myID,empty,winner)
+            {
+                var tempC = $scope.colrs[myID]; var tempN = $scope.nums[myID];
+                $scope.nums[myID] = $scope.nums[empty]; $scope.colrs[myID] = $scope.colrs[empty];
+                $scope.nums[empty] = tempN; $scope.colrs[empty] = tempC;
+                
+                $scope.Cupdate(myID,$scope.nums[myID],$scope.colrs[myID]);
+                $scope.Cupdate(empty,$scope.nums[empty],$scope.colrs[empty]);
+                $scope.emptyID = myID;
+                if( winner == "true" )
+                {
+                    if(confirm("Game is over, new one?")){ window.location.reload(); }
+                    else{ $scope.disableButtns(); }
+                }
+            };
+            $scope.Cupdate = function(i,i_num,i_colr)
+            {
+                document.getElementById(i).innerHTML = i_num;
+                document.getElementById(i).style.backgroundColor = i_colr;
+                if( i_num == 0 )
+                    document.getElementById(i).style.visibility = 'hidden';
+                else
+                    document.getElementById(i).style.visibility = 'visible';
+            };
+            $scope.disableButtns = function()
+            {
+                for(var i=0; i<16; i++)
+                    document.getElementById(i).disabled = true;
+            }
+        }])
+        .directive('myBoard', function () 
+        {
+            return { 
+                template: '<button ng-repeat="i in numIndex" id="{{i}}" ng-style="{ \'left\':{{i%4*60}}+\'px\',\'top\':{{myFloor(i)*60}}+\'px\', \'background-color\':\'{{RandColr(i)}}\' , \'visibility\':\'{{GetVisbl(i)}}\'  }" ng-click="myClick(event)" ng-init class="PlayBtn">{{RandNum(i)}}</button>'
+            };
+        });
+    </script>
+</head>
+<body ng-app="myApp" id="myBod" style="background-color:rgb(255, 255, 255)">
+    <div ng-controller="myCtrl">
+        <div style="height: 250px;" id="space-for-buttons"></div>
+        <hr>
+        <p id="details" style="font-weight: bold; font-style: italic;">Assigment 12</p>
+        <hr>
+        <p>{{AppStatus}}</p>
+    </div>
+</body>
+</html>

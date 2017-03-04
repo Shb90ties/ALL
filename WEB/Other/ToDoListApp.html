@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<meta name="robots" content="noindex">
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+<style id="jsbin-css">
+.upper{
+  text-align: left;
+  position: fixed;
+  width: 48%;
+  height: 48%;
+  overflow: auto;
+  word-break: break-all;
+  right: 1px;
+  top: 1px;
+  border: 1px solid black;
+}
+.bottm{
+  text-align: left;
+  position: fixed;
+  width: 48%;
+  height: 48%;
+  word-break: break-all;
+  overflow: auto;
+  right: 1px;
+  bottom: 1px;
+  border: 1px solid black;
+}
+.sideMenu{
+  text-align: left;
+  width: 48%;
+  height: 100%;
+  float: left;
+  position: absolute;
+  border: 1px solid black;
+  top: 1px;
+}
+.done{
+  text-decoration: line-through;
+  color: grey;
+}
+.on{
+  cursor: pointer;
+}
+</style>
+</head>
+<body>
+  <div class="upper" id="upper">
+    I'm not going tommorrow!!
+  </div>
+  <div class="bottm" id="downer">
+      Bottom!!
+  </div>
+  <div class="sideMenu">
+    details: <br>
+    <input type="text" id="details" /><br>
+    year : <br>
+    <input type="text" id="year" /><br>
+    Month : <br>
+    <input type="text" id="month" /><br>
+    Day : <br>
+    <input type="text" id="day" /><br><br>
+    <button onclick="send()">send</button><br>
+    <p id="error"></p>
+  </div>
+<script id="jsbin-javascript">
+var arr = new Array();
+
+function send(){
+  document.getElementById('error').innerHTML = "";
+  var currYear = new Date().getFullYear();
+  if( !check("year",currYear,currYear+2) || !check("month",1,12) || !check("day",1,31) ){
+    document.getElementById('error').innerHTML = "invalid field";
+    return;
+  }
+  var y = document.getElementById("year").value;
+  var m = document.getElementById("month").value;
+  var d = document.getElementById("day").value;
+  var date_ = new Date(y,m,d);
+  var text_ = document.getElementById("details").value;
+  var obj = { text:text_ , date:date_ , status:"on" };
+  arr.push(obj);
+  showList();
+}
+
+function check(number,min,max){
+  var val = document.getElementById(number).value;
+  if(val === "" ){
+    return false;
+  }
+  var n = Number(val);
+  if(isNaN(n)){ return false; }
+  if(n > max || n < min){ return false; }
+  return true;
+}
+
+function showList(){
+  sort(myCompare,arr);
+  var cc = 1;
+  var on = document.getElementById('upper');
+  var off = document.getElementById('downer');
+  on.innerHTML = ""; off.innerHTML = "";
+  for(var i=0; i< arr.length; i++){
+    if(arr[i].status == "on"){
+      on.innerHTML += '<p href="#" class="on" onclick="removeTask('+i+')"' +
+                      'style="opacity:'+cc+';"><b>'+
+            arr[i].text +' <br> '+arr[i].date+'</b></p>';
+      cc -= 0.05;
+      if( cc < 0.4 ){ cc = 0.4; }
+    }else{
+      off.innerHTML += '<p class="done">'+arr[i].text +' <br> '+arr[i].date+'</p>';
+    }
+  }
+}
+
+function removeTask(index){
+  arr[index].status = "off";
+  showList();
+}
+
+function dateDiffInDays(a, b) {
+  var utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
+  var utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
+
+  return Math.floor((utc2 - utc1) / _MS_PER_DAY);
+}
+
+function daysDiff(datee){
+  var currDate = new Date();
+  var timeDiff = Math.abs(datee.getTime()-currDate.getTime());
+  return Math.ceil(timeDiff/(1000*3600*24));
+}
+
+function myCompare(dateA,dateB){
+  var a = daysDiff(dateA.date);
+  var b = daysDiff(dateB.date);
+  return a-b;
+}
+
+function sort(sortByFunction,array){
+  for(var i=0; i<array.length; i++){
+    for(var j=(i+1); j<array.length; j++){
+      if(sortByFunction(array[i],array[j])>0){
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+      }
+    }
+  }
+}
+
+</script>
+</body>
+</html>

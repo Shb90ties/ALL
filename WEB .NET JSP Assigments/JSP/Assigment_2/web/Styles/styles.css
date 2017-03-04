@@ -1,0 +1,49 @@
+#header
+{
+    background: papayawhip;
+    height: 100px;
+    color: black;
+    text-align: left;
+    padding : 5px;
+}
+a
+{
+    color: blue;
+    text-decoration: none;
+}
+a:hover
+{
+    text-decoration: underline;
+}
+#bod
+{
+    width: 80%;
+    position: absolute;
+    height: 1000px;
+    float: right;
+    text-align: right;
+    padding: 10px;
+}
+#bottom
+{
+    background: papayawhip;
+    text-align: center;
+    color: black;
+    clear: both;
+}
+#category
+{
+    background: papayawhip;
+    width: 60%;
+    height: 80px;
+    text-combine-upright: all;
+    float: left;
+    color: black;
+    text-align: center;
+}
+#category :hover
+{
+    background: burlywood;
+}
+
+

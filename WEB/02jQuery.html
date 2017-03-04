@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        // $(".test"). all objects with class test
+        // $("#test"). all objects with id test
+        // $("div"). all objects that are div
+        // $(this). the object in the (..)
+        // $("p.classA"). all the <p class="classA">
+        // $("p:first"). the first <p>
+        // $("ul li:first"). first <li> from the first <ul>
+        // $("ul li:first-child"). first <li> of every <ul>
+        //_______Attributes_____________________________________
+        // GET :
+        // $("#t").text() $("#t").html() $("#t").val()
+        // $("#w3s").attr("href")
+        // SET :
+        // $("#t").text("Hello world!"); $("#t").html("<b>Hello world!</b>");
+        // $("#t").val("Dolly Duck");
+        // $("#w3s").attr("href", "http://www.w3schools.com/jquery");
+        // $("#w3s").attr({"href" : "dd", "title" : ".." }); multiple
+        //_________Nodes_________________________________________
+        // $("p").append("Some appended text.");
+        // $("p").prepend("Some prepended text."); put in the start of arr
+        //      other method ^ .after .before
+        // $("#div1").remove(); remove itself, $("#div1").empty(); empty itself
+        // $("h1, h2, p").addClass("blue");  $("h1, h2, p").removeClass("blue");
+        //  $("h1").toggleClass("blue"); Add then Remove class back and for
+        // $("span").parent();  $("span").parentsUntil("div");
+        //  $("div").children(); $("#d").find("span"); retuns d's children who r span
+        // $("h2").siblings(); $("h2").next(); returns the next sibling
+        // $("h2").nextAll(); returns all that comes next
+        // $("h2").nextUntil("h6");
+        //_______CSS_______________________________________________
+        // multiple css $("p").css({"background-color": "yellow", "font-size": "200%"});
+        //  $("#div1").width(); $("#div1").innerWidth(); $("#div1").outerHeight();
+        //      outer = include padding & border, inner = only insides
+        // 
+
+        $(document).ready(function () {
+            $("button").click(function () {
+                $(this).css('background-color', 'grey');
+            });
+            // Way 2
+            $("#TT").on("click", function () { alert("second way"); });
+            $("button").mouseleave(function () {
+                $(this).css('background-color', 'grey');
+            });
+            $("button").mouseenter(function () {
+                $(this).css('background-color', 'white');
+            });
+            // EVENTS LIKE ^ dblclick,keypress,keydown,keyup,submit,change
+            // focus,blur,load,resize,scroll
+            $("#BB").click(function () {
+                $("p").hide(200); // hide("slow" || "fast" 
+            });
+            $("#B").click(function () {
+                $("p").show(200);
+            });
+            $("#BBB").click(function () {
+                $("p").toggle(200);
+            });
+            $("#D").click(function () {
+                $("p").fadeOut(200, function () { alert("ddd"); });
+            });
+            // .slideDown(); .slideUp(); .slideToggle();
+            $("#DDD").click(function(){
+                $(this).animate({ left: '100px', width: '+=150px' });
+                            // height: 'toggle' opacity: '0.4' ~ alpha
+            });
+            $("#DDDD").click(function () {
+                $(this).animate({ height: 'toggle', opacity: '0.2' });
+            }); // $("#panel").stop();
+            $("#E").click(function () {
+                $(this).css("color", "red").slideUp(300).slideDown(150).toggle(150);
+            });
+            
+        });
+
+
+    </script>
+</head>
+<body>
+    <button id="TT">TEMP</button><br />
+    <button id="B">$("p").show(200);</button>
+    <button id="BB">$("p").hide(200);</button>
+    <button id="BBB">$("p").toggle(200);</button>
+    <p>TESTEST</p><hr />
+    <button id="D">$("#div3").fadeOut(3000);</button>
+    <button id="DD">$("#div3").fadeOut(3000);</button><br />
+    <button style="position:absolute" id="DDD">.animate({...})</button><br />
+    <div style="height:50px; width:50%; background-color:aqua" id="DDDD">
+        click animate menue toggle
+    </div><br />
+    <button id="E">multiple events</button>
+
+</body>
+</html>

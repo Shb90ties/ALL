@@ -1,0 +1,28 @@
+#!/bin/awk -f
+BEGIN{ T=0; bigMax=0; files="" }
+{	if( FNR == 1 )
+	{	A[file]=max;
+		file=FILENAME;
+		max=0;
+		T=0;		}
+	leng=length($0);
+	for(i=1; i <= NF; i++)
+	{	n=sub("[0-9]",a,$i)
+		T=T+n;		}
+	if( ( T == 0 ) && ( leng > max ) )
+	{	max=leng;	}
+	if( max > bigMax )
+	{	bigMax=max;	}
+}
+END{	A[file]=max;
+	for(i=1; i < ARGC ;i++)
+	{	file=ARGV[i];
+		mx=A[file];
+		print file" "mx;
+		if( mx == bigMax )
+		{	if( i+1 == ARGC )
+			{	files=files""file	}
+			else
+			{	files=files""file" "	}	}	}
+	print files;
+}

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no" />
+    <style>
+        @-ms-viewport { width: 100vw ; min-zoom: 100% ; zoom: 100% ; }  @viewport { width: 100vw ; min-zoom: 100% zoom: 100% ; }
+        @-ms-viewport { user-zoom: fixed ; min-zoom: 100% ; }           @viewport { user-zoom: fixed ; min-zoom: 100% ; }
+    </style>
+    <link rel="stylesheet" href="jquery.mobile-1.4.5.css" type="text/css" />
+    <script src="FastClick.js"></script>
+    <script src="jquery-1.11.0.min.js"></script>
+    <script src="jquery-1.12.0.js"></script>
+    <script src="jquery.mobile-1.4.5.js"></script>
+    <title>Fifteen with Animation + Async Server</title>
+    
+    <style type="text/css">
+        .Bttn_
+        {
+            font-family: Arial;
+            font-size: X-Large;
+            position: absolute;
+        }
+        .ui-page
+        {
+            background-color: white;
+        }
+    </style>
+    
+    <script type="text/javascript">
+        var wid = (screen.width - 70 - 30)/4;
+        var guID;   var empty;  var lock = false;
+        var Game;   var HandlerAddrss;  var OrgnTop;    var OrgnLeft;
+        
+        $(document).bind( "pageinit", function() 
+        {   
+                // run visual studio handler.ashx server folder, copy the url
+            HandlerAddrss = "http://localhost:16083/Handler.ashx";
+            $.get(HandlerAddrss,{'request':"Register"})
+            .success(function(data)
+            { 
+                guID = data;
+                document.getElementById("gu_ID").innerHTML += guID;
+                getGame();
+            })
+            .fail(function(jqXHR, textStatus, errorThrown){ alert("cannot reach server/handler"); });
+        });
+        
+        function getGame()
+        {
+            $.get(HandlerAddrss,{'request':"GetGame"})
+            .success(function(data)
+            { 
+                Game = eval(data);
+                for(var r=0; r<4; r++)
+                {
+                    for(var c=0; c<4; c++)
+                    {
+                        var i = ((r*4)+c);
+                        Bttn = $("<button id='"+i+"' class='Bttn_' style=\"width: "+wid+"px; height: "+wid+"px; top: "+
+                            (r*(wid+10)+35)+"px; left: "+(c*(wid+10)+35)+"px; background-color: "+Game[i].HTMLcolorCode+"; \">"+Game[i].num+"</button>");
+                        Bttn.appendTo($("#fastClick"));
+                        Bttn.click(Click_);
+                    }
+                }
+                for(var j=0; j<16; j++)
+                {
+                    if( document.getElementById(j).innerHTML == '0' )
+                    { document.getElementById(j).style.visibility = 'hidden'; empty = j; }
+                }
+            })
+            .fail(function(jqXHR, textStatus, errorThrown){ alert("cannot reach server/handler"); })
+        }
+
+        function Click_(e)
+        {
+            if(lock){ return; }
+           $.get(HandlerAddrss,{'request':"Move",'number':this.innerHTML})
+           .success(function(data)
+            {
+               var result = GetPart(data);
+               if( result[0] == "switch")
+                {
+                    OrgnTop = document.getElementById(result[2]).style.top;
+                    OrgnLeft = document.getElementById(result[2]).style.left;
+                    lock = true;
+                    animateS(parseInt(result[2]));
+                }
+            })
+           .fail(function(jqXHR, textStatus, errorThrown){ alert("cannot reach server/handler"); })
+        }
+        
+        function animateS(myID)
+        {
+            if( empty == myID+4 )
+                {
+                    $("#"+myID).animate({top: '+='+(wid+10)},"fast",function(){swap_Buttons(myID)}); return;
+                }
+            if( empty == myID-4)
+                {
+                    $("#"+myID).animate({top: '-='+(wid+10)},"fast",function(){swap_Buttons(myID)}); return;
+                }
+            if( empty == myID+1)
+                {
+                    $("#"+myID).animate({left: '+='+(wid+10)},"fast",function(){swap_Buttons(myID)}); return;
+                }
+            $("#"+myID).animate({left: '-='+(wid+10)},"fast",function(){swap_Buttons(myID)});
+        }
+        
+        function swap_Buttons(myID)
+        {
+            var clicked = document.getElementById(myID);
+            clicked.style.left = OrgnLeft;
+            clicked.style.top = OrgnTop;
+            var emptyB = document.getElementById(empty);
+            emptyB.innerHTML = clicked.innerHTML;
+            emptyB.style.visibility = clicked.style.visibility;
+            emptyB.style.backgroundColor = clicked.style.backgroundColor;
+            clicked.style.visibility = 'hidden';
+            clicked.innerHTML = "0";
+            empty = myID;
+            lock = false;
+            changeBackground(clicked.style.backgroundColor);
+        }
+        
+        function changeBackground(buttnColor)
+        {
+            var BttnColor = CSScolorToHTML(buttnColor);
+            var PageColor = CSScolorToHTML($("body").css("background-color"));
+            $('body').css('background', '#ff0000');
+            $.get(HandlerAddrss,{'request':"Average",'colorA':BttnColor,'colorB':PageColor})
+            .success(function(data)
+            {
+                $('.ui-page').css("background-color",data);
+                    // import from jquery.mobile-1.4.5.css => in styles => .ui-page instead of .body
+                checkWinner();
+            })
+            .fail(function(jqXHR, textStatus, errorThrown){ alert("cannot reach server/handler"); })
+        }
+        
+        function checkWinner()
+        {
+            $.get(HandlerAddrss,{'request':"Winner"})
+            .success(function(data)
+            {
+                if(data == "new game been created")
+                {
+                    if(confirm('Game over! Start a new game?'))
+                    {
+                        window.location.reload();
+                    }
+                    else
+                    {
+                        for(var i=0; i<16;i++)
+                        {
+                            document.getElementById(i).disabled = true;      
+                        }
+                    }       
+                } 
+            })
+            .fail(function(jqXHR, textStatus, errorThrown){ alert("cannot reach server/handler"); })
+        }
+        
+        function CSScolorToHTML(colorval) 
+        {
+            var parts = colorval.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+            delete(parts[0]);
+            for (var i = 1; i <= 3; ++i) 
+            {
+                parts[i] = parseInt(parts[i]).toString(16);
+                if (parts[i].length == 1) parts[i] = '0' + parts[i];
+            }
+            color = '#' + parts.join('');
+            return color;
+        }
+        
+        function GetPart(string_)
+        {
+            var array = string_.split("|");
+            return array;
+        }
+        
+    </script>
+</head>   
+<body>
+    <div id="GameArea">
+        <span id="fastClick"></span>
+    </div>
+    <p id="gu_ID">guID : </p>
+</body>
+</html>

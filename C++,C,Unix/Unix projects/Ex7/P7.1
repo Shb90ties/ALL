@@ -1,0 +1,18 @@
+i=$1
+j=$2
+shift
+shift
+echo -n >| outpt
+for word in $@
+do
+ if [ $( echo $word | egrep "((.){$i}){$[$i+1]}" | wc -L ) -gt 0 ]
+ then
+	( echo $word ) >> outpt
+ else
+	if [ $( echo $word | egrep "((.){$i}){$j}" | wc -L ) -gt 0 ]
+	then
+		( echo $word ) >> outpt
+	fi
+ fi
+done
+cat outpt	

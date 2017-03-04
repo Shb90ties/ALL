@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script type="text/javascript">
+
+        function min(array) {
+            var outPut = [];
+            var arrayTemp = array.sort(maxCompare);
+            var j = arrayTemp.length - 1;
+            var i = 0;
+            while (i < j) {
+                outPut.push(arrayTemp[i]);
+                outPut.push(arrayTemp[j]);
+                i++;
+                j--;
+            }
+            if(outPut.length != array.length)
+            {
+                outPut.push(arrayTemp[i]);
+            }
+            return outPut;
+        }
+
+        function maxCompare(a, b) {
+            return a - b;
+        }
+
+
+        var points = [40, 999, 41, 40, 958];
+
+        console.log(min(points));
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>
