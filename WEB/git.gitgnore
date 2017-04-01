@@ -1,0 +1,157 @@
+-> gitignore file, specify folders that commit would ignore
+		# like npm directory
+		# \! for important => \!important!.txt
+		# **/foo => file or directory named foo everywhere
+		# abc/** => everything inside abc folder
+		# a/**/b => matches a/dd/b, a/sfsafs/sdfs/.../b
+
+-> Install invoriment
+	git init
+		# create new repository
+	git init
+			-q / --quiet
+				# only print error and warrning messages
+			--bare
+				# if enviroment is not set, will be set to current folder
+			--template=template_folder
+				# specify the folder that templates will be used from
+			--shared[=(false|true|umask|group|all|world|everybody|0xxx))]
+				# the git repository will be shared among other users
+				unmask (or false)
+					# user premissions from unmask
+				group (or true)
+					# repository shared by group, make it wireable
+	git status
+		# check status
+	
+					
+-> Clone | Download files 
+	git clone path/../repository
+		# download from repository
+	git clone username@host:/path/../repository
+		# download from a remote server
+
+-> Fetch | reset all changes
+	git fetch origin
+		# drop all the changes and get the latest commit in the server
+	git reset --hard origin/master
+		# reset all commits on a some branch name
+
+-> Remote | connect to the server
+	git remote add origin server_address
+		# add server to connect to repository
+	ssh dev7@dev.compie.co.il
+		# connect to a remote site
+	sudo ssh dev7....^
+		# same but, needs master pass 
+	git remote add origin https://github.com/try-git/try_git.git
+		# add a branch
+
+-> Branch | add a breanch to origin to commit to
+	git checkout -b "branch_name"
+		# create new branch to switch to it
+	git checkout master
+		# switch back to master
+	git checkout other_branch_name
+		# switch
+	git checkout -- file_name
+		# replace a file
+	git branch -d "branch_name"
+		# delete the branch
+	git push origin "branch_name"
+		# push files into the branch
+	git remote
+		# see branch status
+	
+-> Commit | Upload files
+	git commit -m "upload_name"
+		# uploads the files in the repository under the upload_name
+	git add file_name
+		# add a file to the current commit
+	git add *
+		# add all files
+	git add '*.txt'
+		# add all the text files
+	git rm '*.txt'
+		# ^
+	git push origin "branch_name"
+		# after commit push the files to server under master or other_name
+			# master/other_name must be in the origin/remote
+
+-> update & merge & reset
+	git pull
+		# will update the repository to the latest commit that was done
+	git diff
+		# 
+	git merge "branch_name"
+		# will try to merge another branch to the one you're in
+	git diff "source_branch" "target_branch"
+		# before merging see the differences between the branches
+	git diff --staged
+		# shows exactly the differences
+	git reset file_name
+		# resets a file like undo
+
+->	Hints
+	gitk
+		# built in git
+	git config color.ui true
+		# show log of one file
+	git config format.pretty oneline
+		# interactive adding
+	git add -i
+
+-> Tags & Logs
+	git tag 1.0.0 sdfsdfsd
+		# create a commit id get it from the log
+	git log
+		# see repository history
+	git log --author=author_name
+		# spedific history
+	git log --pretty=oneline
+		# put each commit in one line
+	git log --graph --oneline --decorate --all
+	git log --help
+	git log --name-status
+		# only files that changed
+
+->	gitIgnore Examples ::
+
+
+	# Compiled source #
+	###################
+	*.com
+	*.class
+	*.dll
+	*.exe
+	*.o
+	*.so
+
+	# Packages #
+	############
+	# it's better to unpack these files and commit the raw source
+	# git has its own built in compression methods
+	*.7z
+	*.dmg
+	*.gz
+	*.iso
+	*.jar
+	*.rar
+	*.tar
+	*.zip
+
+	# Logs and databases #
+	######################
+	*.log
+	*.sql
+	*.sqlite
+
+	# OS generated files #
+	######################
+	.DS_Store
+	.DS_Store?
+	._*
+	.Spotlight-V100
+	.Trashes
+	ehthumbs.db
+	Thumbs.db
