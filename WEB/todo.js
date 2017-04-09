@@ -3,6 +3,8 @@
 			on mouseup layout none
 -> z-index canvas, 1+max-page-z-index
 -> socket-service.add eventlistener
+-> ** ng-switch // ng-config // ng-input // 
+-> **** sprites buttons, exit button => 'x'
 -> *** managment of image type in socket
 -> API 1 generic function
 -> html inspect textbox
