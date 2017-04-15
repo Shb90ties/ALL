@@ -1,0 +1,91 @@
+<div class="chat_wrapper">
+
+    <div class="header_wrap">
+        <div class="inner_header_wrap">
+            <div class="users_wrapper">
+                <div class="user_item user_thumb" style="background-image: url('{{ roomUser.image_url }}');"
+                     ng-repeat="roomUser in roomUsers" ng-class="{isMyself: roomUser.id == userData.authResponse.userID}">
+                    <a title="" title="{{ roomUser.name }}">
+                    <span class="color_user">
+                        <span>
+                            <div class="round-color" ng-style="{'background-color': roomUser.chatColor}"></div>
+                        </span>
+                    </span>
+                    </a>
+                </div>
+            </div>
+            <div>
+                <input type="text" class="chat_url" value="{{ chatUrl }}"  onClick="this.select();">
+            </div>
+        </div>
+
+    </div>
+
+    <div class="chat_container">
+        <div class="chat_room">
+            <div class="message_wrapper" ng-repeat="msg in messages track by $index">
+                <div class="webuy_message_item" ng-class="{bot: msg.isBot}" ng-if="msg.isBot">
+                    <div class="message_up">
+                        <div class="message_left">
+                            <div class="image_container">
+                                <img src="{{msg.user.image_url}}">
+                            </div>
+                        </div>
+                        <div class="message_right">
+                            <div class="message_right_inner">
+                                <div class="message_title">{{msg.user.name}}</div>
+                                <div class="message_text">{{msg.text}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="message_down">
+                        <div class="message_down_content">
+                            <img src="images/chat-logo-example.png">
+                        </div>
+                    </div>
+                </div>
+                <div class="webuy_message_item" ng-class="{bot: msg.isBot}" ng-if="!msg.isBot">
+                    <div ng-switch="msg.type">
+                        <div ng-switch-when="text">
+                            
+                        </div>
+                        <div ng-switch-when="emoji">
+
+                        </div>
+                        <div ng-switch-when="image">
+
+                        </div>
+                        <div ng-switch-when="canvas">
+
+                        </div>
+
+                    </div>
+
+                    <div class="message_up">
+                        <div class="message_left">
+                            <div class="image_container">
+                                <img src="{{msg.user.image_url}}">
+                            </div>
+                        </div>
+                        <div class="message_right">
+                            <div class="message_right_inner">
+                                <div class="message_title"
+                                    ng-style="{'color':msg.user.color}">{{ msg.user.name }}</div>
+                                <div class="message_text">{{ msg.text }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text_enter">
+            <form>
+                <input type="text" placeholder="Type your message..." name="chat_message" ng-focus="enterEvent()"
+                       ng-blur="destroyEnter()" ng-model="chatInp.input" class="chat_message_inp"/>
+                <input type="submit" value="" class="send_message" ng-click="sendTempMessage()">
+            </form>
+
+        </div>
+    </div>
+</div>
