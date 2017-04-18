@@ -1,12 +1,3 @@
--> emoji Apple
--> canvas onmousedown layout block
-			on mouseup layout none
--> z-index canvas, 1+max-page-z-index
--> socket-service.add eventlistener
--> *** managment of image type in socket
--> API 1 generic function
--> html inspect textbox
--> html inspect colors getter
--> if( item-id == current.item-id) return
--> hover on chat pic => big pic
--> emoji box translateY 50% width 100%, container height 80px
+-> git summary
+-> change localstorage -> teamsho-...
+-> loadinfo on pageback
