@@ -1,0 +1,13 @@
+Flexible Table grid with stretching cols
+
+font-size: 0;
+
+  .row {
+    border-spacing: 11px 2.9px;
+    margin: -2.9px -11px;
+  }
+  .col-xs-8, .col-xs-4 {
+    padding: 0;
+    display: table-cell;
+    float: none;
+  }
